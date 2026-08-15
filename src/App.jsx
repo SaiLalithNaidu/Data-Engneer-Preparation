@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from './components/layout/Navbar';
 import Sidebar from './components/layout/Sidebar';
+import Navbar from './components/layout/Navbar';
 import TopicInterviewView from './components/interview/TopicInterviewView';
 import MockPracticeView from './components/interview/MockPracticeView';
 import PdfViewerModal from './components/modules/PdfViewerModal';
 import AuthPage from './components/auth/AuthPage';
-import AuthModal from './components/auth/AuthModal';
 
 import interviewDB from './data/interview_questions_db.json';
+
+const API_BASE = 'http://localhost:5000/api';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('topic'); // 'topic', 'practice'
@@ -18,7 +19,8 @@ export default function App() {
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
-  // Authentication State with LocalStorage Persistence
+  // Authentication Token & User Profile State
+  const [authToken, setAuthToken] = useState(() => localStorage.getItem('de_auth_token') || null);
   const [currentUser, setCurrentUser] = useState(() => {
     try {
       const saved = localStorage.getItem('de_current_user');
@@ -28,35 +30,36 @@ export default function App() {
     }
   });
 
-  const handleLoginSuccess = (userData) => {
-    setCurrentUser(userData);
-    localStorage.setItem('de_current_user', JSON.stringify(userData));
-  };
+  // Individual User Mastered Questions Progress State
+  const [masteredQIds, setMasteredQIds] = useState([]);
 
-  const handleSignOut = () => {
-    setCurrentUser(null);
-    localStorage.removeItem('de_current_user');
-  };
+  // Fetch individual user progress from backend API when logged in
+  useEffect(() => {
+    if (authToken && currentUser) {
+      fetch(`${API_BASE}/user/progress`, {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && Array.isArray(data.masteredQIds)) {
+          setMasteredQIds(data.masteredQIds);
+        }
+      })
+      .catch(err => {
+        console.warn('Backend progress fetch error:', err);
+      });
+    } else {
+      setMasteredQIds([]);
+    }
+  }, [authToken, currentUser]);
 
   // Day / Night Mode State
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const saved = localStorage.getItem('de_theme_dark');
-    return saved ? JSON.parse(saved) : false;
+    return saved !== null ? JSON.parse(saved) : true;
   });
-
-  // LocalStorage persistence for mastered questions
-  const [masteredQIds, setMasteredQIds] = useState(() => {
-    try {
-      const saved = localStorage.getItem('de_mastered_qids');
-      return saved ? JSON.parse(saved) : ['py-1', 'sql-1'];
-    } catch {
-      return ['py-1', 'sql-1'];
-    }
-  });
-
-  useEffect(() => {
-    localStorage.setItem('de_mastered_qids', JSON.stringify(masteredQIds));
-  }, [masteredQIds]);
 
   useEffect(() => {
     localStorage.setItem('de_theme_dark', JSON.stringify(isDarkMode));
@@ -67,16 +70,48 @@ export default function App() {
     }
   }, [isDarkMode]);
 
+  // Login Success Callback
+  const handleLoginSuccess = (userData, token) => {
+    setCurrentUser(userData);
+    setAuthToken(token);
+    localStorage.setItem('de_current_user', JSON.stringify(userData));
+    localStorage.setItem('de_auth_token', token);
+  };
+
+  // Log Out Callback: Clears session and redirects directly to Sign In / Sign Up full page
+  const handleSignOut = () => {
+    setCurrentUser(null);
+    setAuthToken(null);
+    setMasteredQIds([]);
+    localStorage.removeItem('de_current_user');
+    localStorage.removeItem('de_auth_token');
+  };
+
+  // Toggle Mastered Question with Backend Database Sync
   const handleToggleMastered = (qId) => {
-    setMasteredQIds(prev => 
-      prev.includes(qId) ? prev.filter(id => id !== qId) : [...prev, qId]
-    );
+    const updated = masteredQIds.includes(qId)
+      ? masteredQIds.filter(id => id !== qId)
+      : [...masteredQIds, qId];
+
+    setMasteredQIds(updated);
+
+    // Save to backend database for logged in user
+    if (authToken) {
+      fetch(`${API_BASE}/user/progress`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${authToken}`
+        },
+        body: JSON.stringify({ masteredQIds: updated })
+      }).catch(err => console.warn('Failed to sync progress to database:', err));
+    }
   };
 
   const currentTopic = interviewDB.topics.find(t => t.id === selectedTopicId) || interviewDB.topics[0];
 
   // Full Page Style Authentication Screen when not logged in
-  if (!currentUser) {
+  if (!currentUser || !authToken) {
     return (
       <AuthPage
         onLoginSuccess={handleLoginSuccess}
@@ -88,7 +123,7 @@ export default function App() {
 
   return (
     <div className={`min-h-screen flex font-sans transition-colors duration-300 ${
-      isDarkMode ? 'dark-mode bg-[#060b13] text-slate-100' : 'light-mode bg-[#f3f7fe] text-slate-900'
+      isDarkMode ? 'dark-mode bg-[#050811] text-slate-100' : 'light-mode bg-[#f0f4fc] text-slate-900'
     }`}>
       
       {/* Topic Navigation Sidebar */}

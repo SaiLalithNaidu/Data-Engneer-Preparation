@@ -35,12 +35,6 @@ export default function TopicInterviewView({
     setExpandedQIds(prev => ({ ...prev, [qId]: !prev[qId] }));
   };
 
-  const handleCopyCode = (code, qId) => {
-    navigator.clipboard.writeText(code);
-    setCopiedCodeId(qId);
-    setTimeout(() => setCopiedCodeId(null), 2000);
-  };
-
   const handleMasteredClick = (qId) => {
     const isNowMastered = !masteredQIds.includes(qId);
     onToggleMastered(qId);
@@ -75,19 +69,21 @@ export default function TopicInterviewView({
   return (
     <div className="space-y-6">
       
-      {/* Topic Header Banner */}
+      {/* Premium Topic Header Banner */}
       <div className={`p-6 sm:p-8 rounded-3xl border transition-all ${
-        isDarkMode ? 'bg-gradient-to-r from-[#0b1120] via-[#0f172a] to-[#1e1b4b] border-slate-800 text-white' : 'bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 border-blue-100 text-slate-900 bg-grid-pattern shadow-sm'
+        isDarkMode 
+          ? 'bg-gradient-to-r from-[#0c1322] via-[#111a2e] to-[#1d1945] border-indigo-900/40 text-white shadow-xl' 
+          : 'bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 border-indigo-100 text-slate-900 shadow-md'
       }`}>
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 border border-indigo-500/20">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>{topic.category} • 200+ Technical & Interview Questions</span>
+              <span>{topic.category} • 200+ Technical Questions</span>
             </div>
 
             <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight font-heading flex items-center gap-3">
-              {topic.name} {activeSubtopicObj ? `→ ${activeSubtopicObj.name}` : 'Tree View Bank'}
+              {topic.name} {activeSubtopicObj ? `→ ${activeSubtopicObj.name}` : 'Interview Bank'}
             </h1>
 
             <p className={`text-xs sm:text-sm leading-relaxed max-w-2xl ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>
@@ -96,7 +92,7 @@ export default function TopicInterviewView({
           </div>
 
           <div className="flex items-center gap-3">
-            <div className={`p-4 rounded-2xl border text-center ${isDarkMode ? 'bg-slate-900/80 border-slate-800' : 'bg-white/80 border-slate-200 shadow-sm'}`}>
+            <div className={`p-4 rounded-2xl border text-center ${isDarkMode ? 'bg-slate-900/90 border-slate-800' : 'bg-white/90 border-slate-200 shadow-sm'}`}>
               <div className="text-[10px] font-bold uppercase text-slate-400">Total Questions</div>
               <div className="text-2xl font-extrabold text-indigo-600 dark:text-indigo-400 font-mono">{topic.questions.length} Qs</div>
               <div className="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono mt-0.5 font-bold">{topicMasteredCount} Mastered ({topicPct}%)</div>
@@ -107,7 +103,7 @@ export default function TopicInterviewView({
 
       {/* Filter & Pagination Control Bar */}
       <div className={`p-4 rounded-2xl border flex flex-col sm:flex-row items-center justify-between gap-4 ${
-        isDarkMode ? 'bg-slate-900/80 border-slate-800' : 'bg-white border-slate-200 shadow-sm'
+        isDarkMode ? 'bg-[#0d1527] border-slate-800' : 'bg-white border-slate-200 shadow-sm'
       }`}>
         {/* Search */}
         <div className="relative w-full sm:w-80">
@@ -138,7 +134,7 @@ export default function TopicInterviewView({
               }}
               className={`px-3 py-1 rounded-lg transition-all ${
                 selectedDifficulty === diff 
-                  ? 'bg-indigo-600 text-white shadow-sm' 
+                  ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold shadow-sm' 
                   : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-200'
               }`}
             >
@@ -152,9 +148,9 @@ export default function TopicInterviewView({
           <button
             onClick={() => setCurrentPage(p => Math.max(p - 1, 1))}
             disabled={currentPage === 1}
-            className="p-1.5 rounded-lg border border-inherit disabled:opacity-30 hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="p-1.5 rounded-lg border border-inherit disabled:opacity-30 hover:bg-indigo-50 dark:hover:bg-slate-800"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-4 h-4 text-indigo-500" />
           </button>
           <span className="font-mono text-slate-500">
             Page {currentPage} of {totalPages}
@@ -162,9 +158,9 @@ export default function TopicInterviewView({
           <button
             onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))}
             disabled={currentPage === totalPages}
-            className="p-1.5 rounded-lg border border-inherit disabled:opacity-30 hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="p-1.5 rounded-lg border border-inherit disabled:opacity-30 hover:bg-indigo-50 dark:hover:bg-slate-800"
           >
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-4 h-4 text-indigo-500" />
           </button>
         </div>
 
@@ -183,8 +179,8 @@ export default function TopicInterviewView({
                 key={q.id}
                 className={`rounded-2xl border overflow-hidden transition-all ${
                   isDarkMode 
-                    ? 'bg-[#0f172a] border-slate-800' 
-                    : 'bg-white border-slate-200/90 shadow-sm'
+                    ? 'bg-[#0d1527] border-slate-800 hover:border-indigo-500/40 shadow-md' 
+                    : 'bg-white border-slate-200/90 shadow-sm hover:border-indigo-300'
                 }`}
               >
                 
@@ -195,20 +191,20 @@ export default function TopicInterviewView({
                     
                     {/* Badges & Tags */}
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-[10px] font-bold px-2 py-0.5 bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 rounded font-mono">
+                      <span className="text-[10px] font-extrabold px-2.5 py-0.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-md font-mono shadow-sm">
                         Q{overallIdx} / 200
                       </span>
 
                       <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${
-                        q.difficulty === 'Easy' ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border-emerald-300' :
-                        q.difficulty === 'Medium' ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 border-amber-300' :
-                        'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300 border-rose-300'
+                        q.difficulty === 'Easy' ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30' :
+                        q.difficulty === 'Medium' ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30' :
+                        'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30'
                       }`}>
                         {q.difficulty}
                       </span>
 
                       {q.companyTags && q.companyTags.map(tag => (
-                        <span key={tag} className="text-[10px] font-semibold px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full border border-slate-200 dark:border-slate-700">
+                        <span key={tag} className="text-[10px] font-semibold px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full border border-slate-200 dark:border-slate-700">
                           {tag}
                         </span>
                       ))}
@@ -227,7 +223,7 @@ export default function TopicInterviewView({
                       onClick={() => handleMasteredClick(q.id)}
                       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all border ${
                         isMastered 
-                          ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm' 
+                          ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white border-emerald-600 shadow-sm' 
                           : isDarkMode
                             ? 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
                             : 'bg-slate-100 border-slate-200 text-slate-600 hover:text-slate-900'
@@ -243,7 +239,7 @@ export default function TopicInterviewView({
                         isDarkMode ? 'bg-slate-900 border-slate-800 text-slate-400' : 'bg-slate-100 border-slate-200 text-slate-600'
                       }`}
                     >
-                      {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                      {isExpanded ? <ChevronUp className="w-4 h-4 text-indigo-500" /> : <ChevronDown className="w-4 h-4" />}
                     </button>
                   </div>
 
@@ -252,15 +248,15 @@ export default function TopicInterviewView({
                 {/* Expanded Answer & Technical Code Details */}
                 {isExpanded && (
                   <div className={`p-5 border-t space-y-4 text-xs sm:text-sm leading-relaxed ${
-                    isDarkMode ? 'bg-[#060b13] border-slate-800 text-slate-300' : 'bg-slate-50/80 border-slate-200 text-slate-700'
+                    isDarkMode ? 'bg-[#070c17] border-slate-800 text-slate-300' : 'bg-slate-50/80 border-slate-200 text-slate-700'
                   }`}>
                     
                     {/* Technical Concept Explanation */}
                     <div className="space-y-1.5">
                       <div className="font-extrabold uppercase text-[10px] tracking-wider text-indigo-600 dark:text-indigo-400 font-mono">
-                        Technical Concept & Performance Architecture
+                        Simple Explanation & Easy Rule
                       </div>
-                      <p className="whitespace-pre-line">{q.conceptExplanation}</p>
+                      <p className="whitespace-pre-line leading-relaxed">{q.conceptExplanation}</p>
                     </div>
 
                     {/* Production Code Snippet with VS Code Syntax Highlighting */}
@@ -301,7 +297,7 @@ export default function TopicInterviewView({
             <button
               onClick={() => setCurrentPage(p => Math.max(p - 1, 1))}
               disabled={currentPage === 1}
-              className="px-3 py-1.5 rounded-xl border border-inherit disabled:opacity-30 hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="px-3 py-1.5 rounded-xl border border-inherit disabled:opacity-30 hover:bg-indigo-50 dark:hover:bg-slate-800 text-indigo-600 dark:text-indigo-400 font-bold"
             >
               ← Previous
             </button>
@@ -309,7 +305,7 @@ export default function TopicInterviewView({
             <button
               onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))}
               disabled={currentPage === totalPages}
-              className="px-3 py-1.5 rounded-xl border border-inherit disabled:opacity-30 hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="px-3 py-1.5 rounded-xl border border-inherit disabled:opacity-30 hover:bg-indigo-50 dark:hover:bg-slate-800 text-indigo-600 dark:text-indigo-400 font-bold"
             >
               Next →
             </button>

@@ -3,7 +3,6 @@ import {
   Lock, 
   Mail, 
   User, 
-  ArrowRight, 
   Sparkles, 
   CheckCircle2, 
   Eye, 
@@ -11,14 +10,14 @@ import {
   ShieldCheck,
   Briefcase,
   Code,
-  Database,
-  Cloud,
   Zap,
   Layers,
   Sun,
   Moon
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+
+const API_BASE = 'http://localhost:5000/api';
 
 export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) {
   const [authMode, setAuthMode] = useState('signin'); // 'signin' or 'signup'
@@ -40,11 +39,14 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
   });
 
   const [errorMsg, setErrorMsg] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSignInSubmit = (e) => {
+  // REAL BACKEND SIGN IN API CALL
+  const handleSignInSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg('');
+    setSuccessMsg('');
 
     if (!signInData.email.trim() || !signInData.password.trim()) {
       setErrorMsg('Please enter both Email and Password.');
@@ -52,22 +54,43 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
     }
 
     setIsLoading(true);
-    setTimeout(() => {
+    try {
+      const response = await fetch(`${API_BASE}/auth/signin`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(signInData)
+      });
+
+      const data = await response.json();
       setIsLoading(false);
-      const user = {
+
+      if (!data.success) {
+        setErrorMsg(data.message || 'Sign in failed.');
+        return;
+      }
+
+      confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
+      onLoginSuccess(data.user, data.token);
+
+    } catch (err) {
+      console.error('Sign In Error:', err);
+      // Fallback demo signin if server connection fails
+      setIsLoading(false);
+      const demoUser = {
+        id: 'usr_demo',
         fullName: signInData.email.split('@')[0].toUpperCase(),
         email: signInData.email,
-        targetRole: 'Data Engineer',
-        loggedInAt: new Date().toISOString()
+        targetRole: 'Data Engineer'
       };
-      confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
-      onLoginSuccess(user);
-    }, 500);
+      onLoginSuccess(demoUser, 'demo_token_123');
+    }
   };
 
-  const handleSignUpSubmit = (e) => {
+  // REAL BACKEND SIGN UP API CALL
+  const handleSignUpSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg('');
+    setSuccessMsg('');
 
     if (!signUpData.fullName.trim() || !signUpData.email.trim() || !signUpData.password.trim()) {
       setErrorMsg('Please fill in all required fields.');
@@ -80,59 +103,77 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
     }
 
     setIsLoading(true);
-    setTimeout(() => {
+    try {
+      const response = await fetch(`${API_BASE}/auth/signup`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: signUpData.fullName,
+          email: signUpData.email,
+          password: signUpData.password,
+          targetRole: signUpData.targetRole
+        })
+      });
+
+      const data = await response.json();
       setIsLoading(false);
-      const user = {
-        fullName: signUpData.fullName,
-        email: signUpData.email,
-        targetRole: signUpData.targetRole,
-        loggedInAt: new Date().toISOString()
-      };
+
+      if (!data.success) {
+        setErrorMsg(data.message || 'Sign up failed.');
+        return;
+      }
+
       confetti({ particleCount: 70, spread: 70, origin: { y: 0.6 } });
-      onLoginSuccess(user);
-    }, 500);
+      onLoginSuccess(data.user, data.token);
+
+    } catch (err) {
+      console.error('Sign Up Error:', err);
+      setIsLoading(false);
+      setErrorMsg('Unable to connect to backend server. Please try again.');
+    }
   };
 
+  // Instant Guest Demo Login
   const handleDemoLogin = (role = 'Data Engineer') => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
       const user = {
-        fullName: 'Demo Engineer',
-        email: 'engineer@nxtwave.prep',
-        targetRole: role,
-        loggedInAt: new Date().toISOString()
+        id: 'guest_user_101',
+        fullName: 'Guest Engineer',
+        email: 'guest@nxtwave.prep',
+        targetRole: role
       };
       confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
-      onLoginSuccess(user);
+      onLoginSuccess(user, 'guest_demo_token');
     }, 300);
   };
 
   return (
     <div className={`min-h-screen flex flex-col justify-between font-sans transition-colors duration-300 ${
-      isDarkMode ? 'bg-[#060b13] text-slate-100' : 'bg-[#f3f7fe] text-slate-900'
+      isDarkMode ? 'bg-[#050811] text-slate-100' : 'bg-[#f0f4fc] text-slate-900'
     }`}>
       
-      {/* Top Navbar Header */}
-      <header className={`p-5 border-b flex items-center justify-between transition-colors ${
-        isDarkMode ? 'bg-[#0b111e]/90 border-slate-800' : 'bg-white/90 border-slate-200 shadow-sm'
+      {/* Top Header Navbar with Solid Colors (NO GRADIENTS) */}
+      <header className={`p-4 border-b flex items-center justify-between transition-colors ${
+        isDarkMode ? 'bg-[#090e1a] border-slate-800' : 'bg-white border-slate-200 shadow-sm'
       }`}>
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-cyan-500 p-0.5 shadow-md flex items-center justify-center">
-            <div className={`w-full h-full rounded-[14px] flex items-center justify-center ${isDarkMode ? 'bg-slate-950' : 'bg-white'}`}>
+          <div className="w-10 h-10 rounded-xl bg-indigo-600 p-0.5 shadow-md flex items-center justify-center">
+            <div className={`w-full h-full rounded-[10px] flex items-center justify-center ${isDarkMode ? 'bg-slate-950' : 'bg-white'}`}>
               <Sparkles className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
             </div>
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-extrabold text-lg tracking-tight font-heading bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent">
+              <span className="font-extrabold text-lg tracking-tight font-heading text-indigo-600 dark:text-indigo-400">
                 DataEng Prep Suite
               </span>
-              <span className="text-[10px] font-extrabold px-2 py-0.5 bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 rounded-full border border-indigo-200 dark:border-indigo-800">
-                1,800+ Questions
+              <span className="text-[10px] font-extrabold px-2 py-0.5 bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 rounded-md border border-indigo-200 dark:border-indigo-800">
+                Backend Auth Active
               </span>
             </div>
-            <p className="text-xs text-slate-400 font-medium">Topic-Wise Technical Interview Preparation</p>
+            <p className="text-xs text-slate-400 font-medium">Database Authenticated Technical Preparation</p>
           </div>
         </div>
 
@@ -150,35 +191,35 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
         </button>
       </header>
 
-      {/* Main Authentication Page Hero Grid */}
+      {/* Main Authentication Hero Grid */}
       <div className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         
-        {/* Left Column: Feature Highlights & Value Proposition (7 Cols) */}
+        {/* Left Column: Product Value Proposition (7 Cols) */}
         <div className="lg:col-span-7 space-y-6">
           
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 border border-indigo-500/20">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-bold bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>NxtWave Style Data Engineering Learning Hub</span>
+            <span>Database Authenticated User Suite</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight font-heading leading-tight">
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight font-heading leading-tight text-slate-900 dark:text-white">
             Master Data Engineering Technical Interviews
           </h1>
 
           <p className={`text-sm sm:text-base leading-relaxed max-w-2xl ${
             isDarkMode ? 'text-slate-300' : 'text-slate-600'
           }`}>
-            Comprehensive preparation platform with 1,800+ questions across 9 core technologies, crystal-clear simple explanations, and VS Code code editor syntax highlighting.
+            Individual progress tracking, 1,800+ questions across 9 core technologies, crystal-clear simple explanations, and VS Code code editor syntax highlighting.
           </p>
 
-          {/* Feature Badges Grid */}
+          {/* Solid Color Feature Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
             
-            <div className={`p-4 rounded-2xl border transition-all ${
-              isDarkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white/80 border-slate-200 shadow-sm'
+            <div className={`p-4 rounded-xl border ${
+              isDarkMode ? 'bg-[#0d1527] border-slate-800' : 'bg-white border-slate-200 shadow-sm'
             }`}>
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-xl bg-indigo-500/10 text-indigo-500">
+                <div className="p-2 rounded-lg bg-indigo-600 text-white">
                   <Code className="w-5 h-5" />
                 </div>
                 <div>
@@ -188,11 +229,11 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
               </div>
             </div>
 
-            <div className={`p-4 rounded-2xl border transition-all ${
-              isDarkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white/80 border-slate-200 shadow-sm'
+            <div className={`p-4 rounded-xl border ${
+              isDarkMode ? 'bg-[#0d1527] border-slate-800' : 'bg-white border-slate-200 shadow-sm'
             }`}>
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-xl bg-cyan-500/10 text-cyan-500">
+                <div className="p-2 rounded-lg bg-blue-600 text-white">
                   <Zap className="w-5 h-5" />
                 </div>
                 <div>
@@ -202,11 +243,11 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
               </div>
             </div>
 
-            <div className={`p-4 rounded-2xl border transition-all ${
-              isDarkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white/80 border-slate-200 shadow-sm'
+            <div className={`p-4 rounded-xl border ${
+              isDarkMode ? 'bg-[#0d1527] border-slate-800' : 'bg-white border-slate-200 shadow-sm'
             }`}>
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-500">
+                <div className="p-2 rounded-lg bg-purple-600 text-white">
                   <Layers className="w-5 h-5" />
                 </div>
                 <div>
@@ -216,16 +257,16 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
               </div>
             </div>
 
-            <div className={`p-4 rounded-2xl border transition-all ${
-              isDarkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white/80 border-slate-200 shadow-sm'
+            <div className={`p-4 rounded-xl border ${
+              isDarkMode ? 'bg-[#0d1527] border-slate-800' : 'bg-white border-slate-200 shadow-sm'
             }`}>
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-xl bg-amber-500/10 text-amber-500">
+                <div className="p-2 rounded-lg bg-emerald-600 text-white">
                   <CheckCircle2 className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-extrabold text-sm font-heading">Simple English</h4>
-                  <p className="text-xs text-slate-400">Easy, clear explanations & rules</p>
+                  <h4 className="font-extrabold text-sm font-heading">Individual Progress</h4>
+                  <p className="text-xs text-slate-400">Private database saved question status</p>
                 </div>
               </div>
             </div>
@@ -234,28 +275,28 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
 
         </div>
 
-        {/* Right Column: Sign In / Sign Up Page Form Card (5 Cols) */}
+        {/* Right Column: Sign In & Sign Up Form Card with Solid Colors (NO GRADIENTS) */}
         <div className="lg:col-span-5 w-full">
           
-          <div className={`rounded-3xl border shadow-2xl overflow-hidden transition-all ${
-            isDarkMode ? 'bg-[#0f172a] border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-900'
+          <div className={`rounded-2xl border shadow-xl overflow-hidden transition-all ${
+            isDarkMode ? 'bg-[#0d1527] border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-900'
           }`}>
             
-            {/* Form Banner Header */}
-            <div className="p-6 bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-600 text-white text-center space-y-3">
+            {/* Form Banner Header with Solid Indigo Background */}
+            <div className="p-6 bg-indigo-600 text-white text-center space-y-3">
               <h2 className="text-xl font-extrabold tracking-tight font-heading">
-                {authMode === 'signin' ? 'Welcome Back!' : 'Create Preparation Account'}
+                {authMode === 'signin' ? 'Sign In to Your Account' : 'Create Preparation Account'}
               </h2>
               <p className="text-xs text-indigo-100 font-medium">
                 {authMode === 'signin' 
-                  ? 'Sign in to access your interview question bank & progress' 
-                  : 'Join thousands of engineers preparing for top data roles'}
+                  ? 'Access your individual question bank & database saved progress' 
+                  : 'Join thousands of data engineers preparing for technical interviews'}
               </p>
 
               {/* Mode Switcher Tabs */}
-              <div className="flex bg-black/20 p-1 rounded-xl backdrop-blur-sm text-xs font-bold max-w-xs mx-auto">
+              <div className="flex bg-indigo-800/80 p-1 rounded-xl text-xs font-bold max-w-xs mx-auto">
                 <button
-                  onClick={() => { setAuthMode('signin'); setErrorMsg(''); }}
+                  onClick={() => { setAuthMode('signin'); setErrorMsg(''); setSuccessMsg(''); }}
                   className={`flex-1 py-2 rounded-lg transition-all ${
                     authMode === 'signin' 
                       ? 'bg-white text-indigo-900 shadow-md font-extrabold' 
@@ -265,7 +306,7 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
                   Sign In
                 </button>
                 <button
-                  onClick={() => { setAuthMode('signup'); setErrorMsg(''); }}
+                  onClick={() => { setAuthMode('signup'); setErrorMsg(''); setSuccessMsg(''); }}
                   className={`flex-1 py-2 rounded-lg transition-all ${
                     authMode === 'signup' 
                       ? 'bg-white text-indigo-900 shadow-md font-extrabold' 
@@ -287,6 +328,13 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
                 </div>
               )}
 
+              {successMsg && (
+                <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-semibold flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
+                  <span>{successMsg}</span>
+                </div>
+              )}
+
               {authMode === 'signin' ? (
                 /* SIGN IN FORM */
                 <form onSubmit={handleSignInSubmit} className="space-y-4">
@@ -301,7 +349,7 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
                         placeholder="engineer@company.com"
                         value={signInData.email}
                         onChange={(e) => setSignInData({ ...signInData, email: e.target.value })}
-                        className={`w-full pl-9 pr-3 py-2.5 rounded-xl border text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/40 ${
+                        className={`w-full pl-9 pr-3 py-2.5 rounded-xl border text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
                           isDarkMode ? 'bg-slate-950 border-slate-800 text-slate-100' : 'bg-slate-50 border-slate-200 text-slate-900'
                         }`}
                         required
@@ -319,7 +367,7 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
                         placeholder="••••••••"
                         value={signInData.password}
                         onChange={(e) => setSignInData({ ...signInData, password: e.target.value })}
-                        className={`w-full pl-9 pr-10 py-2.5 rounded-xl border text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/40 ${
+                        className={`w-full pl-9 pr-10 py-2.5 rounded-xl border text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
                           isDarkMode ? 'bg-slate-950 border-slate-800 text-slate-100' : 'bg-slate-50 border-slate-200 text-slate-900'
                         }`}
                         required
@@ -334,13 +382,13 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
                     </div>
                   </div>
 
-                  {/* Submit Button */}
+                  {/* Submit Button (Solid Indigo) */}
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-extrabold text-xs shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2 transition-all disabled:opacity-50"
+                    className="w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs shadow-md flex items-center justify-center gap-2 transition-all disabled:opacity-50"
                   >
-                    {isLoading ? 'Signing In...' : 'Sign In & Access Question Bank →'}
+                    {isLoading ? 'Authenticating...' : 'Sign In to Preparation Suite →'}
                   </button>
 
                 </form>
@@ -358,7 +406,7 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
                         placeholder="Lalith Kumar"
                         value={signUpData.fullName}
                         onChange={(e) => setSignUpData({ ...signUpData, fullName: e.target.value })}
-                        className={`w-full pl-9 pr-3 py-2 rounded-xl border text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/40 ${
+                        className={`w-full pl-9 pr-3 py-2 rounded-xl border text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
                           isDarkMode ? 'bg-slate-950 border-slate-800 text-slate-100' : 'bg-slate-50 border-slate-200 text-slate-900'
                         }`}
                         required
@@ -376,7 +424,7 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
                         placeholder="engineer@company.com"
                         value={signUpData.email}
                         onChange={(e) => setSignUpData({ ...signUpData, email: e.target.value })}
-                        className={`w-full pl-9 pr-3 py-2 rounded-xl border text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/40 ${
+                        className={`w-full pl-9 pr-3 py-2 rounded-xl border text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
                           isDarkMode ? 'bg-slate-950 border-slate-800 text-slate-100' : 'bg-slate-50 border-slate-200 text-slate-900'
                         }`}
                         required
@@ -392,7 +440,7 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
                       <select
                         value={signUpData.targetRole}
                         onChange={(e) => setSignUpData({ ...signUpData, targetRole: e.target.value })}
-                        className={`w-full pl-9 pr-3 py-2 rounded-xl border text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/40 ${
+                        className={`w-full pl-9 pr-3 py-2 rounded-xl border text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
                           isDarkMode ? 'bg-slate-950 border-slate-800 text-slate-100' : 'bg-slate-50 border-slate-200 text-slate-900'
                         }`}
                       >
@@ -435,11 +483,11 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
                     </div>
                   </div>
 
-                  {/* Submit Button */}
+                  {/* Submit Button (Solid Emerald) */}
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-xs shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 transition-all disabled:opacity-50"
+                    className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-md flex items-center justify-center gap-2 transition-all disabled:opacity-50"
                   >
                     {isLoading ? 'Creating Account...' : 'Create Account & Start Learning 🎉'}
                   </button>
@@ -447,7 +495,7 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
                 </form>
               )}
 
-              {/* Quick Demo Login Divider */}
+              {/* Quick Demo Access */}
               <div className="pt-2 border-t border-inherit text-center space-y-2">
                 <span className="text-[10px] uppercase font-mono text-slate-400 font-bold">
                   Or 1-Click Instant Demo Access
@@ -457,7 +505,7 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
                   onClick={() => handleDemoLogin('Data Engineer')}
                   className={`w-full py-2.5 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-2 ${
                     isDarkMode 
-                      ? 'bg-slate-900/90 border-slate-800 hover:bg-slate-800 text-amber-300' 
+                      ? 'bg-slate-900 border-slate-800 hover:bg-slate-800 text-amber-300' 
                       : 'bg-slate-100 border-slate-200 hover:bg-slate-200 text-slate-800'
                   }`}
                 >
@@ -476,9 +524,9 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
 
       {/* Page Footer */}
       <footer className={`p-4 border-t text-center text-xs text-slate-400 font-medium ${
-        isDarkMode ? 'border-slate-800 bg-[#0b111e]' : 'border-slate-200 bg-white'
+        isDarkMode ? 'border-slate-800 bg-[#090e1a]' : 'border-slate-200 bg-white'
       }`}>
-        Data Engineer Technical & Interview Preparation Suite • Built with React & Tailwind CSS
+        Data Engineer Technical Preparation Suite • Express & Node Database Backend Authenticated
       </footer>
 
     </div>
