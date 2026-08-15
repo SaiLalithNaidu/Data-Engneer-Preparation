@@ -1,5 +1,31 @@
 {
-  "users": [],
-  "progress": {},
-  "tokens": {}
+  "users": [
+    {
+      "id": "usr_1786797728196_z4imn",
+      "fullName": "sai",
+      "email": "sai@gmail.com",
+      "passwordHash": "ee50ef7fa7a44e1b4dead458d9206e00d2aa22f97165b213a5ce586cbac375f9",
+      "targetRole": "Data Engineer",
+      "createdAt": "2026-08-15T12:42:08.196Z"
+    },
+    {
+      "id": "usr_1786797790325_qtwtz",
+      "fullName": "lalith",
+      "email": "lalith@gmail.com",
+      "passwordHash": "ee50ef7fa7a44e1b4dead458d9206e00d2aa22f97165b213a5ce586cbac375f9",
+      "targetRole": "Data Engineer",
+      "createdAt": "2026-08-15T12:43:10.325Z"
+    }
+  ],
+  "progress": {
+    "usr_1786797728196_z4imn": [
+      "python-1"
+    ],
+    "usr_1786797790325_qtwtz": []
+  },
+  "tokens": {
+    "token_1786797728196_285903aa0e4b2123fd6aa0b6b539c40e": "usr_1786797728196_z4imn",
+    "token_1786797757503_4cf09a10df8cb1eaa972ccb032f80885": "usr_1786797728196_z4imn",
+    "token_1786797790325_b0ad199ca28a97315e8bd6cd5e49e9c9": "usr_1786797790325_qtwtz"
+  }
 }

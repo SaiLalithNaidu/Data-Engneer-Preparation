@@ -13,7 +13,9 @@ import {
   Zap,
   Layers,
   Sun,
-  Moon
+  Moon,
+  Database,
+  Key
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -22,6 +24,7 @@ const API_BASE = 'http://localhost:5000/api';
 export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) {
   const [authMode, setAuthMode] = useState('signin'); // 'signin' or 'signup'
   const [showPassword, setShowPassword] = useState(false);
+  const [showDbInfo, setShowDbInfo] = useState(false);
   
   // Sign In Form State
   const [signInData, setSignInData] = useState({
@@ -154,9 +157,9 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
       isDarkMode ? 'bg-[#050811] text-slate-100' : 'bg-[#f0f4fc] text-slate-900'
     }`}>
       
-      {/* Top Header Navbar with Solid Colors (NO GRADIENTS) */}
+      {/* Top Header Navbar with High Contrast */}
       <header className={`p-4 border-b flex items-center justify-between transition-colors ${
-        isDarkMode ? 'bg-[#090e1a] border-slate-800' : 'bg-white border-slate-200 shadow-sm'
+        isDarkMode ? 'bg-[#090e1a] border-slate-800' : 'bg-white border-slate-200 shadow-xs'
       }`}>
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-indigo-600 p-0.5 shadow-md flex items-center justify-center">
@@ -166,10 +169,14 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-extrabold text-lg tracking-tight font-heading text-indigo-600 dark:text-indigo-400">
+              <span className={`font-extrabold text-lg tracking-tight font-heading ${
+                isDarkMode ? 'text-indigo-400' : 'text-indigo-600'
+              }`}>
                 DataEng Prep Suite
               </span>
-              <span className="text-[10px] font-extrabold px-2 py-0.5 bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 rounded-md border border-indigo-200 dark:border-indigo-800">
+              <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-md border ${
+                isDarkMode ? 'bg-indigo-950 text-indigo-300 border-indigo-800' : 'bg-indigo-50 text-indigo-700 border-indigo-200'
+              }`}>
                 Backend Auth Active
               </span>
             </div>
@@ -177,18 +184,31 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
           </div>
         </div>
 
-        {/* Day / Night Theme Toggle Button */}
-        <button
-          onClick={() => setIsDarkMode(!isDarkMode)}
-          className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold transition-all border ${
-            isDarkMode 
-              ? 'bg-slate-900 border-slate-800 text-amber-300 hover:bg-slate-800' 
-              : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200'
-          }`}
-        >
-          {isDarkMode ? <Moon className="w-4 h-4 text-indigo-400" /> : <Sun className="w-4 h-4 text-amber-500" />}
-          <span className="hidden sm:inline">{isDarkMode ? 'Night Mode' : 'Day Mode'}</span>
-        </button>
+        <div className="flex items-center gap-3">
+          {/* Database Config Modal Button */}
+          <button
+            onClick={() => setShowDbInfo(!showDbInfo)}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all border ${
+              isDarkMode ? 'bg-slate-900 border-slate-800 text-indigo-300' : 'bg-indigo-50 border-indigo-200 text-indigo-700'
+            }`}
+          >
+            <Database className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">DB Settings</span>
+          </button>
+
+          {/* Day / Night Theme Toggle Button */}
+          <button
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold transition-all border ${
+              isDarkMode 
+                ? 'bg-slate-900 border-slate-800 text-amber-300 hover:bg-slate-800' 
+                : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200'
+            }`}
+          >
+            {isDarkMode ? <Moon className="w-4 h-4 text-indigo-400" /> : <Sun className="w-4 h-4 text-amber-500" />}
+            <span className="hidden sm:inline">{isDarkMode ? 'Night Mode' : 'Day Mode'}</span>
+          </button>
+        </div>
       </header>
 
       {/* Main Authentication Hero Grid */}
@@ -197,12 +217,17 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
         {/* Left Column: Product Value Proposition (7 Cols) */}
         <div className="lg:col-span-7 space-y-6">
           
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-bold bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
+          <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-bold border ${
+            isDarkMode ? 'bg-indigo-950 text-indigo-300 border-indigo-800' : 'bg-indigo-50 text-indigo-700 border-indigo-200'
+          }`}>
             <Sparkles className="w-3.5 h-3.5" />
             <span>Database Authenticated User Suite</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight font-heading leading-tight text-slate-900 dark:text-white">
+          {/* Headline - HIGH CONTRAST FIX FOR DAY/NIGHT MODE */}
+          <h1 className={`text-3xl sm:text-5xl font-extrabold tracking-tight font-heading leading-tight ${
+            isDarkMode ? 'text-white' : 'text-slate-900'
+          }`}>
             Master Data Engineering Technical Interviews
           </h1>
 
@@ -216,7 +241,7 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
             
             <div className={`p-4 rounded-xl border ${
-              isDarkMode ? 'bg-[#0d1527] border-slate-800' : 'bg-white border-slate-200 shadow-sm'
+              isDarkMode ? 'bg-[#0d1527] border-slate-800 text-slate-100' : 'bg-white border-slate-200 shadow-sm text-slate-900'
             }`}>
               <div className="flex items-center gap-3">
                 <div className="p-2 rounded-lg bg-indigo-600 text-white">
@@ -230,7 +255,7 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
             </div>
 
             <div className={`p-4 rounded-xl border ${
-              isDarkMode ? 'bg-[#0d1527] border-slate-800' : 'bg-white border-slate-200 shadow-sm'
+              isDarkMode ? 'bg-[#0d1527] border-slate-800 text-slate-100' : 'bg-white border-slate-200 shadow-sm text-slate-900'
             }`}>
               <div className="flex items-center gap-3">
                 <div className="p-2 rounded-lg bg-blue-600 text-white">
@@ -244,7 +269,7 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
             </div>
 
             <div className={`p-4 rounded-xl border ${
-              isDarkMode ? 'bg-[#0d1527] border-slate-800' : 'bg-white border-slate-200 shadow-sm'
+              isDarkMode ? 'bg-[#0d1527] border-slate-800 text-slate-100' : 'bg-white border-slate-200 shadow-sm text-slate-900'
             }`}>
               <div className="flex items-center gap-3">
                 <div className="p-2 rounded-lg bg-purple-600 text-white">
@@ -258,7 +283,7 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
             </div>
 
             <div className={`p-4 rounded-xl border ${
-              isDarkMode ? 'bg-[#0d1527] border-slate-800' : 'bg-white border-slate-200 shadow-sm'
+              isDarkMode ? 'bg-[#0d1527] border-slate-800 text-slate-100' : 'bg-white border-slate-200 shadow-sm text-slate-900'
             }`}>
               <div className="flex items-center gap-3">
                 <div className="p-2 rounded-lg bg-emerald-600 text-white">
@@ -275,7 +300,7 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
 
         </div>
 
-        {/* Right Column: Sign In & Sign Up Form Card with Solid Colors (NO GRADIENTS) */}
+        {/* Right Column: Sign In & Sign Up Form Card */}
         <div className="lg:col-span-5 w-full">
           
           <div className={`rounded-2xl border shadow-xl overflow-hidden transition-all ${
@@ -521,6 +546,40 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
         </div>
 
       </div>
+
+      {/* DB Settings Info Modal */}
+      {showDbInfo && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+          <div className={`w-full max-w-lg p-6 rounded-2xl border shadow-2xl space-y-4 ${
+            isDarkMode ? 'bg-[#0d1527] border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-900'
+          }`}>
+            <div className="flex items-center justify-between border-b pb-3 border-inherit">
+              <div className="flex items-center gap-2 font-bold text-sm font-heading text-indigo-500">
+                <Database className="w-4 h-4" />
+                <span>Database Credentials & Configuration</span>
+              </div>
+              <button onClick={() => setShowDbInfo(false)} className="text-xs text-slate-400 hover:text-white">✕ Close</button>
+            </div>
+
+            <div className="text-xs space-y-2 leading-relaxed">
+              <p>Database credentials & configuration are stored in your environment file:</p>
+              <div className="p-3 rounded-xl bg-slate-950 text-indigo-300 font-mono text-[11px] space-y-1">
+                <div># Root File: .env</div>
+                <div>DB_TYPE=sqlite (or postgres / mysql)</div>
+                <div>DB_HOST=localhost</div>
+                <div>DB_PORT=5432</div>
+                <div>DB_USER=postgres</div>
+                <div>DB_PASSWORD=your_password</div>
+                <div>DB_NAME=data_engineer_db</div>
+                <div>JWT_SECRET=super_secret_key_2026</div>
+              </div>
+              <p className="text-slate-400 text-[11px]">
+                File location: <code className="text-indigo-400">server/server.js</code> & <code className="text-indigo-400">.env</code>
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Page Footer */}
       <footer className={`p-4 border-t text-center text-xs text-slate-400 font-medium ${
