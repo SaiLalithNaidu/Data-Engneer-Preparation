@@ -1,0 +1,102 @@
+{
+  "topics": [
+    {
+      "id": "python",
+      "name": "Python Real-World Concepts",
+      "category": "Programming",
+      "concepts": [
+        {
+          "id": "py-concept-1",
+          "title": "Generators & Memory-Efficient Streaming",
+          "subtopic": "Generators & Memory Optimization",
+          "what": "A Python Generator is a special function that yields data one row at a time instead of loading an entire dataset into RAM at once.",
+          "why": "In production data engineering pipelines, trying to load a 20GB CSV log file into a standard Python list using `list.append()` will instantly cause an Out-Of-Memory (OOM) crash and stop your ETL pipeline.",
+          "whereAndHow": "Used in daily batch ingestion scripts at Netflix and Uber to stream large S3 log files line-by-line, parse JSON payloads, and load them into database tables without spiking server RAM beyond 50MB.",
+          "architectureDiagram": "graph TD\n  A[20GB S3 Log File] -->|Line-by-Line Stream| B[Python Generator yield]\n  B -->|50MB Tiny Memory Buffer| C[ETL Transformation]\n  C -->|Batch Insert| D[Database Table]",
+          "codeExample": {
+            "title": "streaming_log_parser.py",
+            "language": "python",
+            "code": "# Real-Time Example: Streaming 20GB S3 Log File without OOM Crash\nimport json\n\ndef stream_s3_log_file(file_path):\n    \"\"\"Generates one parsed JSON record at a time\"\"\"\n    with open(file_path, 'r', encoding='utf-8') as file:\n        for line_num, line in enumerate(file, 1):\n            if line.strip():\n                yield json.loads(line) # Yields 1 line at a time\n\n# Production Pipeline Usage\nlog_stream = stream_s3_log_file('large_server_logs.json')\nfor record in log_stream:\n    # Process record line by line (RAM stays below 50MB!)\n    if record.get('status') == 500:\n        print(f\"Alert: Server Error on IP {record.get('ip')}\")"
+          }
+        },
+        {
+          "id": "py-concept-2",
+          "title": "Object-Oriented Programming (OOP) Pipeline Connectors",
+          "subtopic": "Object-Oriented Programming (OOP)",
+          "what": "OOP in Data Engineering involves building reusable class structures (e.g. `BaseExtractor`, `PostgresLoader`) with methods for connect, extract, transform, and close.",
+          "why": "Hardcoding database connections in 50 different scripts leads to broken code when credentials change. Classes encapsulate connection retry logic, logging, and error handling in one place.",
+          "whereAndHow": "Applied in Airflow DAGs to create custom database hooks that open connections safely, run queries with automatic retries, and close connections cleanly.",
+          "architectureDiagram": "graph LR\n  A[BaseConnector Class] --> B[PostgresConnector Subclass]\n  A --> C[SnowflakeConnector Subclass]\n  B --> D[Airflow ETL Task]",
+          "codeExample": {
+            "title": "production_pipeline_connector.py",
+            "language": "python",
+            "code": "# Production Base Database Connector Class\nimport logging\n\nclass ProductionDatabaseHook:\n    def __init__(self, db_uri, timeout=30):\n        self.db_uri = db_uri\n        self.timeout = timeout\n        self.logger = logging.getLogger(__name__)\n\n    def connect(self):\n        self.logger.info(f\"Connecting to DB at {self.db_uri}...\")\n        return \"[DB Connection Object]\"\n\n    def execute_query(self, sql_query):\n        conn = self.connect()\n        self.logger.info(f\"Executing: {sql_query}\")\n        return [{\"status\": \"SUCCESS\"}]\n\n# Instantiate in Data Pipeline\nhook = ProductionDatabaseHook('postgresql://user:pass@db:5432/warehouse')\nresults = hook.execute_query('SELECT COUNT(*) FROM user_events;')"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sql",
+      "name": "SQL Real-World Concepts",
+      "category": "Database",
+      "concepts": [
+        {
+          "id": "sql-concept-1",
+          "title": "Window Functions (DENSE_RANK vs RANK vs ROW_NUMBER)",
+          "subtopic": "Window Functions (DENSE_RANK, LAG, LEAD)",
+          "what": "Window Functions perform calculations across a set of table rows related to the current row without collapsing rows like `GROUP BY` does.",
+          "why": "Essential for solving real-world business queries like 'Find top 3 highest spending customers per country' or 'Calculate 7-day rolling revenue averages'.",
+          "whereAndHow": "Used in Amazon and E-commerce analytics reporting dashboards to assign ranks for daily product sales and detect sudden revenue drops using `LAG()`.",
+          "architectureDiagram": "graph TD\n  A[Raw Sales Table] -->|PARTITION BY Country ORDER BY Sales DESC| B[Window Calculation]\n  B --> C[Row 1: DENSE_RANK = 1]\n  B --> D[Row 2: DENSE_RANK = 2]\n  B --> E[Row 3: DENSE_RANK = 2]\n  B --> F[Row 4: DENSE_RANK = 3]",
+          "codeExample": {
+            "title": "top_n_spending_customers.sql",
+            "language": "sql",
+            "code": "-- Real-World Query: Find Top 2 Highest Spending Customers per Country\nWITH RankedCustomers AS (\n  SELECT \n    customer_id,\n    country,\n    total_spend,\n    DENSE_RANK() OVER (\n      PARTITION BY country \n      ORDER BY total_spend DESC\n    ) AS spend_rank\n  FROM customer_sales_summary\n)\nSELECT \n  customer_id, \n  country, \n  total_spend, \n  spend_rank\nFROM RankedCustomers\nWHERE spend_rank <= 2;"
+          }
+        }
+      ]
+    },
+    {
+      "id": "aws",
+      "name": "AWS Cloud Real-World Concepts",
+      "category": "AWS Cloud",
+      "concepts": [
+        {
+          "id": "aws-concept-1",
+          "title": "AWS Glue Crawlers & Catalog with Amazon Athena",
+          "subtopic": "AWS Glue Data Catalog & Crawlers",
+          "what": "AWS Glue Crawler automatically scans data files stored in S3, infers schema data types, and registers tables into the AWS Glue Data Catalog. Amazon Athena lets you run standard SQL queries directly over those S3 files.",
+          "why": "Without Glue & Athena, querying 500GB of raw S3 CSV/Parquet files requires setting up expensive database servers. Athena is 100% serverless ($5 per TB scanned).",
+          "whereAndHow": "Applied in financial and IoT pipelines to convert raw JSON S3 logs into Parquet format, run Glue Crawlers, and query daily transaction reports in Athena instantly.",
+          "architectureDiagram": "graph LR\n  A[S3 Bucket s3://raw-logs/] -->|Auto Scan Schema| B[AWS Glue Crawler]\n  B -->|Save Metadata| C[Glue Data Catalog]\n  C -->|Serverless SQL Query| D[Amazon Athena Engine]\n  D -->|SQL Output| E[QuickSight / BI Dashboard]",
+          "codeExample": {
+            "title": "athena_parquet_table.sql",
+            "language": "sql",
+            "code": "-- Real-World Athena Table over S3 Parquet Logs\nCREATE EXTERNAL TABLE IF NOT EXISTS analytics_db.user_clicks (\n  user_id STRING,\n  event_timestamp TIMESTAMP,\n  page_url STRING,\n  device_type STRING\n)\nPARTITIONED BY (year STRING, month STRING)\nSTORED AS PARQUET\nLOCATION 's3://my-company-lake-silver/user_clicks/'\nTBLPROPERTIES ('parquet.compress'='SNAPPY');"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pyspark",
+      "name": "PySpark Real-World Concepts",
+      "category": "Big Data Processing",
+      "concepts": [
+        {
+          "id": "pyspark-concept-1",
+          "title": "Broadcast Join vs Data Skew Salting",
+          "subtopic": "Broadcast vs Sort-Merge Joins",
+          "what": "Broadcast Join copies a small DataFrame (e.g., 10MB stores lookup table) to all Spark worker nodes so PySpark can join it with a massive 100GB table without shuffling network data.",
+          "why": "Network data shuffling across 50 worker machines is the #1 slowest operation in Spark jobs. Broadcasting small tables eliminates 90% of shuffle network lag.",
+          "whereAndHow": "Used in retail transaction processing pipelines to join 1 Billion sales events with 500 store location records in seconds.",
+          "architectureDiagram": "graph TD\n  A[Driver Node] -->|Broadcasts Small 10MB Store Table| B[Executor Node 1]\n  A -->|Broadcasts Small 10MB Store Table| C[Executor Node 2]\n  B -->|Local Memory Join| D[100GB Sales Partition 1]\n  C -->|Local Memory Join| E[100GB Sales Partition 2]",
+          "codeExample": {
+            "title": "broadcast_join_optimization.py",
+            "language": "python",
+            "code": "# Real-World PySpark Broadcast Join Optimization\nfrom pyspark.sql import SparkSession\nfrom pyspark.sql.functions import broadcast\n\nspark = SparkSession.builder.appName(\"RetailAnalytics\").getOrCreate()\n\n# 100GB Massive Transactions Table\nhuge_sales_df = spark.read.parquet(\"s3a://data-lake/fact_sales/\")\n\n# Small 5MB Store Dimension Table\nsmall_stores_df = spark.read.csv(\"s3a://data-lake/dim_stores.csv\", header=True)\n\n# Optimized Broadcast Join (Zero Network Shuffle!)\nenriched_sales_df = huge_sales_df.join(\n    broadcast(small_stores_df),\n    on=\"store_id\",\n    how=\"inner\"\n)\n\nenriched_sales_df.write.mode(\"overwrite\").parquet(\"s3a://data-lake/gold_sales/\")"
+          }
+        }
+      ]
+    }
+  ]
+}

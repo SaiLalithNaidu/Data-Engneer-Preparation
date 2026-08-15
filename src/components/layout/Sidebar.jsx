@@ -64,14 +64,18 @@ export default function Sidebar({
   const handleSelectParentTopic = (tId) => {
     setSelectedTopicId(tId);
     setSelectedSubtopicId(null);
-    setActiveTab('topic');
+    if (activeTab !== 'infographic' && activeTab !== 'concepts') {
+      setActiveTab('topic');
+    }
     setExpandedTopicIds(prev => ({ ...prev, [tId]: true }));
   };
 
   const handleSelectSubtopic = (tId, subId) => {
     setSelectedTopicId(tId);
     setSelectedSubtopicId(subId);
-    setActiveTab('topic');
+    if (activeTab !== 'infographic' && activeTab !== 'concepts') {
+      setActiveTab('topic');
+    }
   };
 
   const sidebarContent = (
@@ -112,26 +116,50 @@ export default function Sidebar({
       {/* Tree Navigation Container */}
       <div className="flex-1 overflow-y-auto px-3 py-3 space-y-4">
         
-        {/* Practice Mode Quick Button */}
+      {/* Navigation Quick Buttons */}
+      <div className="px-3 pt-3 space-y-2">
+        {/* Infographic Cheat Sheet Button */}
         <button
           onClick={() => {
-            setActiveTab('practice');
+            setActiveTab('infographic');
             onCloseMobile();
           }}
           className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
-            activeTab === 'practice'
+            activeTab === 'infographic'
               ? 'bg-indigo-600 text-white shadow-md'
-              : isDarkMode ? 'bg-slate-900 text-amber-300 border border-slate-800' : 'bg-amber-50 text-amber-800 border border-amber-200'
+              : isDarkMode ? 'bg-slate-900 text-indigo-300 border border-slate-800 hover:bg-slate-800' : 'bg-indigo-50 text-indigo-800 border border-indigo-200 hover:bg-indigo-100'
           }`}
         >
           <div className="flex items-center gap-2">
-            <Trophy className="w-4 h-4 text-amber-400" />
-            <span>Mock Technical Practice</span>
+            <Sparkles className="w-4 h-4 text-indigo-400" />
+            <span>Infographic Cheat Sheet</span>
           </div>
-          <span className="text-[9px] font-mono uppercase bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded">
-            Test
+          <span className="text-[9px] font-mono uppercase bg-indigo-500/20 text-indigo-300 px-1.5 py-0.5 rounded font-extrabold">
+            Poster
           </span>
         </button>
+
+        {/* Real-Time Concept Guide Button */}
+        <button
+          onClick={() => {
+            setActiveTab('concepts');
+            onCloseMobile();
+          }}
+          className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
+            activeTab === 'concepts'
+              ? 'bg-indigo-600 text-white shadow-md'
+              : isDarkMode ? 'bg-slate-900 text-indigo-300 border border-slate-800 hover:bg-slate-800' : 'bg-indigo-50 text-indigo-800 border border-indigo-200 hover:bg-indigo-100'
+          }`}
+        >
+          <div className="flex items-center gap-2">
+            <FileCode2 className="w-4 h-4 text-indigo-400" />
+            <span>Real-Time Concept Guide</span>
+          </div>
+          <span className="text-[9px] font-mono uppercase bg-indigo-500/20 text-indigo-300 px-1.5 py-0.5 rounded font-extrabold">
+            What/Why/How
+          </span>
+        </button>
+      </div>
 
         {/* Section Header */}
         <div>

@@ -1,0 +1,1457 @@
+{
+  "python": {
+    "id": "python",
+    "title": "What is Python in Data Engineering?",
+    "subtitle": "Learn Python for Data Engineering in simple words: data structures, generators, functions, decorators, and Pandas.",
+    "whyList": [
+      "Essential for Python data pipeline development",
+      "Scalable production performance",
+      "Industry standard across enterprise cloud data lakes",
+      "Seamless integration with Airflow & Data Warehouses",
+      "High efficiency for batch & real-time streaming"
+    ],
+    "whereUsed": [
+      {
+        "title": "Data Engineering",
+        "desc": "Python data pipelines & ETL automation"
+      },
+      {
+        "title": "Data Analytics",
+        "desc": "Reporting & business metrics using Python"
+      },
+      {
+        "title": "Cloud Integration",
+        "desc": "AWS, Snowflake, Databricks & BigQuery workflows"
+      },
+      {
+        "title": "Data Quality",
+        "desc": "Automated schema validation & data integrity"
+      },
+      {
+        "title": "Ad-Hoc Querying",
+        "desc": "Fast analytical query execution"
+      }
+    ],
+    "howItWorks": [
+      {
+        "step": "1. Ingest Data",
+        "desc": "Reads source data files into Python engine"
+      },
+      {
+        "step": "2. Query Optimizer",
+        "desc": "Compiles execution plan & optimizes joins"
+      },
+      {
+        "step": "3. Parallel Execution",
+        "desc": "Processes partitions in parallel memory RAM"
+      },
+      {
+        "step": "4. Load Output",
+        "desc": "Writes results to S3, Postgres or Snowflake"
+      }
+    ],
+    "whenToUse": [
+      "When processing Python data transformations",
+      "When building production ETL/ELT pipelines",
+      "When optimizing data warehouse query speed",
+      "When standardizing analytics data modeling"
+    ],
+    "coreConcepts": [
+      {
+        "concept": "Data Structures & Collections",
+        "desc": "Core concepts and practical implementation pattern for Data Structures & Collections."
+      },
+      {
+        "concept": "Generators & Memory Optimization",
+        "desc": "Core concepts and practical implementation pattern for Generators & Memory Optimization."
+      },
+      {
+        "concept": "Object-Oriented Programming (OOP)",
+        "desc": "Core concepts and practical implementation pattern for Object-Oriented Programming (OOP)."
+      },
+      {
+        "concept": "Lambda & List Comprehensions",
+        "desc": "Core concepts and practical implementation pattern for Lambda & List Comprehensions."
+      },
+      {
+        "concept": "Decorators & Context Managers",
+        "desc": "Core concepts and practical implementation pattern for Decorators & Context Managers."
+      },
+      {
+        "concept": "File I/O & JSON/CSV Streaming",
+        "desc": "Core concepts and practical implementation pattern for File I/O & JSON/CSV Streaming."
+      },
+      {
+        "concept": "Multiprocessing & GIL",
+        "desc": "Core concepts and practical implementation pattern for Multiprocessing & GIL."
+      },
+      {
+        "concept": "Pandas DataFrames & Transformations",
+        "desc": "Core concepts and practical implementation pattern for Pandas DataFrames & Transformations."
+      }
+    ],
+    "basicCode": "# Simple Python Data Filter Function\ndef clean_user_data(user_list):\n    # Keep only users with a valid email\n    valid_users = [user for user in user_list if user.get('email') is not None]\n    return valid_users",
+    "advancedCode": "# Simple Python Generator Example\ndef read_large_csv(file_name):\n    # Yields one row at a time to save memory RAM\n    with open(file_name, 'r') as file:\n        for line in file:\n            yield line.strip().split(',')",
+    "platforms": [
+      "AWS Cloud",
+      "Databricks",
+      "Snowflake",
+      "Local Environment"
+    ],
+    "summary": "Python = Core Data Engineering Pillar. Essential mastery for interview success.",
+    "subtopicDetails": {
+      "python-sub-1": {
+        "title": "Python: Data Structures & Collections",
+        "subtitle": "Question 1: What is Data Structures & Collections in Python and why is it important?",
+        "whyList": [
+          "Mastering Data Structures & Collections is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Python",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Python Data Filter Function\ndef clean_user_data(user_list):\n    # Keep only users with a valid email\n    valid_users = [user for user in user_list if user.get('email') is not None]\n    return valid_users",
+        "explanation": "Simple Explanation:\nData Structures & Collections helps you write clean, fast Python code.\n\nKey Points in Simple Words:\n1. What it does: It handles your data step-by-step so your computer memory (RAM) stays low.\n2. Why we use it: Large 10GB files can crash Python if loaded all at once. Processing line-by-line prevents crashes.\n3. Easy Rule: Always use generators (yield) or Pandas chunking for big data files."
+      },
+      "python-sub-2": {
+        "title": "Python: Generators & Memory Optimization",
+        "subtitle": "Question 2: What is Generators & Memory Optimization in Python and why is it important?",
+        "whyList": [
+          "Mastering Generators & Memory Optimization is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Python",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Python Generator Example\ndef read_large_csv(file_name):\n    # Yields one row at a time to save memory RAM\n    with open(file_name, 'r') as file:\n        for line in file:\n            yield line.strip().split(',')",
+        "explanation": "Simple Explanation:\nGenerators & Memory Optimization helps you write clean, fast Python code.\n\nKey Points in Simple Words:\n1. What it does: It handles your data step-by-step so your computer memory (RAM) stays low.\n2. Why we use it: Large 10GB files can crash Python if loaded all at once. Processing line-by-line prevents crashes.\n3. Easy Rule: Always use generators (yield) or Pandas chunking for big data files."
+      },
+      "python-sub-3": {
+        "title": "Python: Object-Oriented Programming (OOP)",
+        "subtitle": "Question 3: What is Object-Oriented Programming (OOP) in Python and why is it important?",
+        "whyList": [
+          "Mastering Object-Oriented Programming (OOP) is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Python",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Execution Time Decorator\nimport time\n\ndef measure_time(func):\n    def wrapper(*args, **kwargs):\n        start = time.time()\n        result = func(*args, **kwargs)\n        print(f\"Done in {time.time() - start:.2f} seconds!\")\n        return result\n    return wrapper",
+        "explanation": "Simple Explanation:\nObject-Oriented Programming (OOP) helps you write clean, fast Python code.\n\nKey Points in Simple Words:\n1. What it does: It handles your data step-by-step so your computer memory (RAM) stays low.\n2. Why we use it: Large 10GB files can crash Python if loaded all at once. Processing line-by-line prevents crashes.\n3. Easy Rule: Always use generators (yield) or Pandas chunking for big data files."
+      },
+      "python-sub-4": {
+        "title": "Python: Lambda & List Comprehensions",
+        "subtitle": "Question 4: What is Lambda & List Comprehensions in Python and why is it important?",
+        "whyList": [
+          "Mastering Lambda & List Comprehensions is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Python",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Pandas DataFrame Filter\nimport pandas as pd\n\ndef process_orders(file_path):\n    df = pd.read_csv(file_path)\n    # Remove rows where customer_id is missing\n    clean_df = df.dropna(subset=['customer_id'])\n    return clean_df",
+        "explanation": "Simple Explanation:\nLambda & List Comprehensions helps you write clean, fast Python code.\n\nKey Points in Simple Words:\n1. What it does: It handles your data step-by-step so your computer memory (RAM) stays low.\n2. Why we use it: Large 10GB files can crash Python if loaded all at once. Processing line-by-line prevents crashes.\n3. Easy Rule: Always use generators (yield) or Pandas chunking for big data files."
+      },
+      "python-sub-5": {
+        "title": "Python: Decorators & Context Managers",
+        "subtitle": "Question 5: What is Decorators & Context Managers in Python and why is it important?",
+        "whyList": [
+          "Mastering Decorators & Context Managers is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Python",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Python Data Filter Function\ndef clean_user_data(user_list):\n    # Keep only users with a valid email\n    valid_users = [user for user in user_list if user.get('email') is not None]\n    return valid_users",
+        "explanation": "Simple Explanation:\nDecorators & Context Managers helps you write clean, fast Python code.\n\nKey Points in Simple Words:\n1. What it does: It handles your data step-by-step so your computer memory (RAM) stays low.\n2. Why we use it: Large 10GB files can crash Python if loaded all at once. Processing line-by-line prevents crashes.\n3. Easy Rule: Always use generators (yield) or Pandas chunking for big data files."
+      },
+      "python-sub-6": {
+        "title": "Python: File I/O & JSON/CSV Streaming",
+        "subtitle": "Question 6: What is File I/O & JSON/CSV Streaming in Python and why is it important?",
+        "whyList": [
+          "Mastering File I/O & JSON/CSV Streaming is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Python",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Python Generator Example\ndef read_large_csv(file_name):\n    # Yields one row at a time to save memory RAM\n    with open(file_name, 'r') as file:\n        for line in file:\n            yield line.strip().split(',')",
+        "explanation": "Simple Explanation:\nFile I/O & JSON/CSV Streaming helps you write clean, fast Python code.\n\nKey Points in Simple Words:\n1. What it does: It handles your data step-by-step so your computer memory (RAM) stays low.\n2. Why we use it: Large 10GB files can crash Python if loaded all at once. Processing line-by-line prevents crashes.\n3. Easy Rule: Always use generators (yield) or Pandas chunking for big data files."
+      },
+      "python-sub-7": {
+        "title": "Python: Multiprocessing & GIL",
+        "subtitle": "Question 7: What is Multiprocessing & GIL in Python and why is it important?",
+        "whyList": [
+          "Mastering Multiprocessing & GIL is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Python",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Execution Time Decorator\nimport time\n\ndef measure_time(func):\n    def wrapper(*args, **kwargs):\n        start = time.time()\n        result = func(*args, **kwargs)\n        print(f\"Done in {time.time() - start:.2f} seconds!\")\n        return result\n    return wrapper",
+        "explanation": "Simple Explanation:\nMultiprocessing & GIL helps you write clean, fast Python code.\n\nKey Points in Simple Words:\n1. What it does: It handles your data step-by-step so your computer memory (RAM) stays low.\n2. Why we use it: Large 10GB files can crash Python if loaded all at once. Processing line-by-line prevents crashes.\n3. Easy Rule: Always use generators (yield) or Pandas chunking for big data files."
+      },
+      "python-sub-8": {
+        "title": "Python: Pandas DataFrames & Transformations",
+        "subtitle": "Question 8: What is Pandas DataFrames & Transformations in Python and why is it important?",
+        "whyList": [
+          "Mastering Pandas DataFrames & Transformations is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Python",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Pandas DataFrame Filter\nimport pandas as pd\n\ndef process_orders(file_path):\n    df = pd.read_csv(file_path)\n    # Remove rows where customer_id is missing\n    clean_df = df.dropna(subset=['customer_id'])\n    return clean_df",
+        "explanation": "Simple Explanation:\nPandas DataFrames & Transformations helps you write clean, fast Python code.\n\nKey Points in Simple Words:\n1. What it does: It handles your data step-by-step so your computer memory (RAM) stays low.\n2. Why we use it: Large 10GB files can crash Python if loaded all at once. Processing line-by-line prevents crashes.\n3. Easy Rule: Always use generators (yield) or Pandas chunking for big data files."
+      }
+    }
+  },
+  "sql": {
+    "id": "sql",
+    "title": "What is SQL in Data Engineering?",
+    "subtitle": "Learn SQL in simple words: window functions, joins, group by, subqueries, indexing, and data modeling.",
+    "whyList": [
+      "Essential for SQL data pipeline development",
+      "Scalable production performance",
+      "Industry standard across enterprise cloud data lakes",
+      "Seamless integration with Airflow & Data Warehouses",
+      "High efficiency for batch & real-time streaming"
+    ],
+    "whereUsed": [
+      {
+        "title": "Data Engineering",
+        "desc": "SQL data pipelines & ETL automation"
+      },
+      {
+        "title": "Data Analytics",
+        "desc": "Reporting & business metrics using SQL"
+      },
+      {
+        "title": "Cloud Integration",
+        "desc": "AWS, Snowflake, Databricks & BigQuery workflows"
+      },
+      {
+        "title": "Data Quality",
+        "desc": "Automated schema validation & data integrity"
+      },
+      {
+        "title": "Ad-Hoc Querying",
+        "desc": "Fast analytical query execution"
+      }
+    ],
+    "howItWorks": [
+      {
+        "step": "1. Ingest Data",
+        "desc": "Reads source data files into SQL engine"
+      },
+      {
+        "step": "2. Query Optimizer",
+        "desc": "Compiles execution plan & optimizes joins"
+      },
+      {
+        "step": "3. Parallel Execution",
+        "desc": "Processes partitions in parallel memory RAM"
+      },
+      {
+        "step": "4. Load Output",
+        "desc": "Writes results to S3, Postgres or Snowflake"
+      }
+    ],
+    "whenToUse": [
+      "When processing SQL data transformations",
+      "When building production ETL/ELT pipelines",
+      "When optimizing data warehouse query speed",
+      "When standardizing analytics data modeling"
+    ],
+    "coreConcepts": [
+      {
+        "concept": "Core SQL & Aggregates",
+        "desc": "Core concepts and practical implementation pattern for Core SQL & Aggregates."
+      },
+      {
+        "concept": "Window Functions (DENSE_RANK, LAG, LEAD)",
+        "desc": "Core concepts and practical implementation pattern for Window Functions (DENSE_RANK, LAG, LEAD)."
+      },
+      {
+        "concept": "Window Frame Clauses (ROWS BETWEEN)",
+        "desc": "Core concepts and practical implementation pattern for Window Frame Clauses (ROWS BETWEEN)."
+      },
+      {
+        "concept": "Advanced Joins (Inner, Left, Semi, Anti)",
+        "desc": "Core concepts and practical implementation pattern for Advanced Joins (Inner, Left, Semi, Anti)."
+      },
+      {
+        "concept": "Subqueries & CTEs",
+        "desc": "Core concepts and practical implementation pattern for Subqueries & CTEs."
+      },
+      {
+        "concept": "Data Modeling (Star & Snowflake Schema)",
+        "desc": "Core concepts and practical implementation pattern for Data Modeling (Star & Snowflake Schema)."
+      },
+      {
+        "concept": "Indexing & Query Optimization",
+        "desc": "Core concepts and practical implementation pattern for Indexing & Query Optimization."
+      },
+      {
+        "concept": "ACID Transactions & Isolation Levels",
+        "desc": "Core concepts and practical implementation pattern for ACID Transactions & Isolation Levels."
+      }
+    ],
+    "basicCode": "-- Find 2nd Highest Salary per Department using DENSE_RANK()\nWITH RankedSalaries AS (\n  SELECT \n    employee_id,\n    department_id,\n    salary,\n    DENSE_RANK() OVER (PARTITION BY department_id ORDER BY salary DESC) AS rk\n  FROM employees\n)\nSELECT employee_id, department_id, salary\nFROM RankedSalaries\nWHERE rk = 2;",
+    "advancedCode": "-- Find Customers with Zero Orders (Left Anti Join)\nSELECT c.customer_id, c.customer_name\nFROM customers c\nWHERE NOT EXISTS (\n  SELECT 1 FROM orders o \n  WHERE o.customer_id = c.customer_id\n);",
+    "platforms": [
+      "AWS Cloud",
+      "Databricks",
+      "Snowflake",
+      "Local Environment"
+    ],
+    "summary": "SQL = Core Data Engineering Pillar. Essential mastery for interview success.",
+    "subtopicDetails": {
+      "sql-sub-1": {
+        "title": "SQL: Core SQL & Aggregates",
+        "subtitle": "Question 1: What is Core SQL & Aggregates in SQL and why is it important?",
+        "whyList": [
+          "Mastering Core SQL & Aggregates is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in SQL",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "-- Find 2nd Highest Salary per Department using DENSE_RANK()\nWITH RankedSalaries AS (\n  SELECT \n    employee_id,\n    department_id,\n    salary,\n    DENSE_RANK() OVER (PARTITION BY department_id ORDER BY salary DESC) AS rk\n  FROM employees\n)\nSELECT employee_id, department_id, salary\nFROM RankedSalaries\nWHERE rk = 2;",
+        "explanation": "Simple Explanation:\nIn SQL, Core SQL & Aggregates is used to rank, filter, and organize database rows easily.\n\nKey Points in Simple Words:\n1. DENSE_RANK() vs RANK(): DENSE_RANK() gives 1, 2, 2, 3 (no gaps). RANK() gives 1, 2, 2, 4 (skips number 3).\n2. Why we use it: Window functions allow you to calculate running totals or find top salaries without losing individual row details.\n3. Easy Rule: Always use PARTITION BY to group rows and ORDER BY to sort rows inside the window function."
+      },
+      "sql-sub-2": {
+        "title": "SQL: Window Functions (DENSE_RANK, LAG, LEAD)",
+        "subtitle": "Question 2: What is Window Functions (DENSE_RANK, LAG, LEAD) in SQL and why is it important?",
+        "whyList": [
+          "Mastering Window Functions (DENSE_RANK, LAG, LEAD) is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in SQL",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "-- Find Customers with Zero Orders (Left Anti Join)\nSELECT c.customer_id, c.customer_name\nFROM customers c\nWHERE NOT EXISTS (\n  SELECT 1 FROM orders o \n  WHERE o.customer_id = c.customer_id\n);",
+        "explanation": "Simple Explanation:\nIn SQL, Window Functions (DENSE_RANK, LAG, LEAD) is used to rank, filter, and organize database rows easily.\n\nKey Points in Simple Words:\n1. DENSE_RANK() vs RANK(): DENSE_RANK() gives 1, 2, 2, 3 (no gaps). RANK() gives 1, 2, 2, 4 (skips number 3).\n2. Why we use it: Window functions allow you to calculate running totals or find top salaries without losing individual row details.\n3. Easy Rule: Always use PARTITION BY to group rows and ORDER BY to sort rows inside the window function."
+      },
+      "sql-sub-3": {
+        "title": "SQL: Window Frame Clauses (ROWS BETWEEN)",
+        "subtitle": "Question 3: What is Window Frame Clauses (ROWS BETWEEN) in SQL and why is it important?",
+        "whyList": [
+          "Mastering Window Frame Clauses (ROWS BETWEEN) is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in SQL",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "-- Calculate 7-Day Rolling Average Revenue\nSELECT \n  sale_date,\n  daily_amount,\n  AVG(daily_amount) OVER (\n    ORDER BY sale_date \n    ROWS BETWEEN 6 PRECEDING AND CURRENT ROW\n  ) AS rolling_7day_avg\nFROM daily_sales;",
+        "explanation": "Simple Explanation:\nIn SQL, Window Frame Clauses (ROWS BETWEEN) is used to rank, filter, and organize database rows easily.\n\nKey Points in Simple Words:\n1. DENSE_RANK() vs RANK(): DENSE_RANK() gives 1, 2, 2, 3 (no gaps). RANK() gives 1, 2, 2, 4 (skips number 3).\n2. Why we use it: Window functions allow you to calculate running totals or find top salaries without losing individual row details.\n3. Easy Rule: Always use PARTITION BY to group rows and ORDER BY to sort rows inside the window function."
+      },
+      "sql-sub-4": {
+        "title": "SQL: Advanced Joins (Inner, Left, Semi, Anti)",
+        "subtitle": "Question 4: What is Advanced Joins (Inner, Left, Semi, Anti) in SQL and why is it important?",
+        "whyList": [
+          "Mastering Advanced Joins (Inner, Left, Semi, Anti) is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in SQL",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "-- Clean Monthly Summary CTE\nWITH MonthlySales AS (\n  SELECT \n    DATE_TRUNC('month', order_date) AS sales_month,\n    SUM(amount) AS total_revenue\n  FROM orders\n  GROUP BY 1\n)\nSELECT * FROM MonthlySales WHERE total_revenue > 5000;",
+        "explanation": "Simple Explanation:\nIn SQL, Advanced Joins (Inner, Left, Semi, Anti) is used to rank, filter, and organize database rows easily.\n\nKey Points in Simple Words:\n1. DENSE_RANK() vs RANK(): DENSE_RANK() gives 1, 2, 2, 3 (no gaps). RANK() gives 1, 2, 2, 4 (skips number 3).\n2. Why we use it: Window functions allow you to calculate running totals or find top salaries without losing individual row details.\n3. Easy Rule: Always use PARTITION BY to group rows and ORDER BY to sort rows inside the window function."
+      },
+      "sql-sub-5": {
+        "title": "SQL: Subqueries & CTEs",
+        "subtitle": "Question 5: What is Subqueries & CTEs in SQL and why is it important?",
+        "whyList": [
+          "Mastering Subqueries & CTEs is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in SQL",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "-- Find 2nd Highest Salary per Department using DENSE_RANK()\nWITH RankedSalaries AS (\n  SELECT \n    employee_id,\n    department_id,\n    salary,\n    DENSE_RANK() OVER (PARTITION BY department_id ORDER BY salary DESC) AS rk\n  FROM employees\n)\nSELECT employee_id, department_id, salary\nFROM RankedSalaries\nWHERE rk = 2;",
+        "explanation": "Simple Explanation:\nIn SQL, Subqueries & CTEs is used to rank, filter, and organize database rows easily.\n\nKey Points in Simple Words:\n1. DENSE_RANK() vs RANK(): DENSE_RANK() gives 1, 2, 2, 3 (no gaps). RANK() gives 1, 2, 2, 4 (skips number 3).\n2. Why we use it: Window functions allow you to calculate running totals or find top salaries without losing individual row details.\n3. Easy Rule: Always use PARTITION BY to group rows and ORDER BY to sort rows inside the window function."
+      },
+      "sql-sub-6": {
+        "title": "SQL: Data Modeling (Star & Snowflake Schema)",
+        "subtitle": "Question 6: What is Data Modeling (Star & Snowflake Schema) in SQL and why is it important?",
+        "whyList": [
+          "Mastering Data Modeling (Star & Snowflake Schema) is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in SQL",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "-- Find Customers with Zero Orders (Left Anti Join)\nSELECT c.customer_id, c.customer_name\nFROM customers c\nWHERE NOT EXISTS (\n  SELECT 1 FROM orders o \n  WHERE o.customer_id = c.customer_id\n);",
+        "explanation": "Simple Explanation:\nIn SQL, Data Modeling (Star & Snowflake Schema) is used to rank, filter, and organize database rows easily.\n\nKey Points in Simple Words:\n1. DENSE_RANK() vs RANK(): DENSE_RANK() gives 1, 2, 2, 3 (no gaps). RANK() gives 1, 2, 2, 4 (skips number 3).\n2. Why we use it: Window functions allow you to calculate running totals or find top salaries without losing individual row details.\n3. Easy Rule: Always use PARTITION BY to group rows and ORDER BY to sort rows inside the window function."
+      },
+      "sql-sub-7": {
+        "title": "SQL: Indexing & Query Optimization",
+        "subtitle": "Question 7: What is Indexing & Query Optimization in SQL and why is it important?",
+        "whyList": [
+          "Mastering Indexing & Query Optimization is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in SQL",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "-- Calculate 7-Day Rolling Average Revenue\nSELECT \n  sale_date,\n  daily_amount,\n  AVG(daily_amount) OVER (\n    ORDER BY sale_date \n    ROWS BETWEEN 6 PRECEDING AND CURRENT ROW\n  ) AS rolling_7day_avg\nFROM daily_sales;",
+        "explanation": "Simple Explanation:\nIn SQL, Indexing & Query Optimization is used to rank, filter, and organize database rows easily.\n\nKey Points in Simple Words:\n1. DENSE_RANK() vs RANK(): DENSE_RANK() gives 1, 2, 2, 3 (no gaps). RANK() gives 1, 2, 2, 4 (skips number 3).\n2. Why we use it: Window functions allow you to calculate running totals or find top salaries without losing individual row details.\n3. Easy Rule: Always use PARTITION BY to group rows and ORDER BY to sort rows inside the window function."
+      },
+      "sql-sub-8": {
+        "title": "SQL: ACID Transactions & Isolation Levels",
+        "subtitle": "Question 8: What is ACID Transactions & Isolation Levels in SQL and why is it important?",
+        "whyList": [
+          "Mastering ACID Transactions & Isolation Levels is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in SQL",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "-- Clean Monthly Summary CTE\nWITH MonthlySales AS (\n  SELECT \n    DATE_TRUNC('month', order_date) AS sales_month,\n    SUM(amount) AS total_revenue\n  FROM orders\n  GROUP BY 1\n)\nSELECT * FROM MonthlySales WHERE total_revenue > 5000;",
+        "explanation": "Simple Explanation:\nIn SQL, ACID Transactions & Isolation Levels is used to rank, filter, and organize database rows easily.\n\nKey Points in Simple Words:\n1. DENSE_RANK() vs RANK(): DENSE_RANK() gives 1, 2, 2, 3 (no gaps). RANK() gives 1, 2, 2, 4 (skips number 3).\n2. Why we use it: Window functions allow you to calculate running totals or find top salaries without losing individual row details.\n3. Easy Rule: Always use PARTITION BY to group rows and ORDER BY to sort rows inside the window function."
+      }
+    }
+  },
+  "python-etl": {
+    "id": "python-etl",
+    "title": "What is Python ETL in Data Engineering?",
+    "subtitle": "Learn Python ETL in simple words: API extraction, file chunking, database connections, and idempotent batch pipelines.",
+    "whyList": [
+      "Essential for Python ETL data pipeline development",
+      "Scalable production performance",
+      "Industry standard across enterprise cloud data lakes",
+      "Seamless integration with Airflow & Data Warehouses",
+      "High efficiency for batch & real-time streaming"
+    ],
+    "whereUsed": [
+      {
+        "title": "Data Engineering",
+        "desc": "Python ETL data pipelines & ETL automation"
+      },
+      {
+        "title": "Data Analytics",
+        "desc": "Reporting & business metrics using Python ETL"
+      },
+      {
+        "title": "Cloud Integration",
+        "desc": "AWS, Snowflake, Databricks & BigQuery workflows"
+      },
+      {
+        "title": "Data Quality",
+        "desc": "Automated schema validation & data integrity"
+      },
+      {
+        "title": "Ad-Hoc Querying",
+        "desc": "Fast analytical query execution"
+      }
+    ],
+    "howItWorks": [
+      {
+        "step": "1. Ingest Data",
+        "desc": "Reads source data files into Python ETL engine"
+      },
+      {
+        "step": "2. Query Optimizer",
+        "desc": "Compiles execution plan & optimizes joins"
+      },
+      {
+        "step": "3. Parallel Execution",
+        "desc": "Processes partitions in parallel memory RAM"
+      },
+      {
+        "step": "4. Load Output",
+        "desc": "Writes results to S3, Postgres or Snowflake"
+      }
+    ],
+    "whenToUse": [
+      "When processing Python ETL data transformations",
+      "When building production ETL/ELT pipelines",
+      "When optimizing data warehouse query speed",
+      "When standardizing analytics data modeling"
+    ],
+    "coreConcepts": [
+      {
+        "concept": "API Extraction & Rate Limits",
+        "desc": "Core concepts and practical implementation pattern for API Extraction & Rate Limits."
+      },
+      {
+        "concept": "File Chunking & Memory Streaming",
+        "desc": "Core concepts and practical implementation pattern for File Chunking & Memory Streaming."
+      },
+      {
+        "concept": "Database Connections & SQLAlchemy",
+        "desc": "Core concepts and practical implementation pattern for Database Connections & SQLAlchemy."
+      },
+      {
+        "concept": "Idempotent Batch Overwrite Patterns",
+        "desc": "Core concepts and practical implementation pattern for Idempotent Batch Overwrite Patterns."
+      },
+      {
+        "concept": "Pipeline Logging & Error Alerts",
+        "desc": "Core concepts and practical implementation pattern for Pipeline Logging & Error Alerts."
+      },
+      {
+        "concept": "Modular ETL Testing & Pytest",
+        "desc": "Core concepts and practical implementation pattern for Modular ETL Testing & Pytest."
+      }
+    ],
+    "basicCode": "# Simple Python Data Filter Function\ndef clean_user_data(user_list):\n    # Keep only users with a valid email\n    valid_users = [user for user in user_list if user.get('email') is not None]\n    return valid_users",
+    "advancedCode": "# Simple Python Generator Example\ndef read_large_csv(file_name):\n    # Yields one row at a time to save memory RAM\n    with open(file_name, 'r') as file:\n        for line in file:\n            yield line.strip().split(',')",
+    "platforms": [
+      "AWS Cloud",
+      "Databricks",
+      "Snowflake",
+      "Local Environment"
+    ],
+    "summary": "Python ETL = Core Data Engineering Pillar. Essential mastery for interview success.",
+    "subtopicDetails": {
+      "python-etl-sub-1": {
+        "title": "Python ETL: API Extraction & Rate Limits",
+        "subtitle": "Question 1: What is API Extraction & Rate Limits in Python ETL and why is it important?",
+        "whyList": [
+          "Mastering API Extraction & Rate Limits is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Python ETL",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Python Data Filter Function\ndef clean_user_data(user_list):\n    # Keep only users with a valid email\n    valid_users = [user for user in user_list if user.get('email') is not None]\n    return valid_users",
+        "explanation": "Simple Explanation:\nAPI Extraction & Rate Limits ensures your Python ETL pipeline runs smoothly every single day.\n\nKey Points in Simple Words:\n1. What is Idempotency? It means running your ETL script 5 times gives the exact same result without making duplicate rows.\n2. How to do it: Delete old data for today's date first, then insert the new data.\n3. Easy Rule: Always handle API errors with retries and log pipeline status to Slack or email."
+      },
+      "python-etl-sub-2": {
+        "title": "Python ETL: File Chunking & Memory Streaming",
+        "subtitle": "Question 2: What is File Chunking & Memory Streaming in Python ETL and why is it important?",
+        "whyList": [
+          "Mastering File Chunking & Memory Streaming is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Python ETL",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Python Generator Example\ndef read_large_csv(file_name):\n    # Yields one row at a time to save memory RAM\n    with open(file_name, 'r') as file:\n        for line in file:\n            yield line.strip().split(',')",
+        "explanation": "Simple Explanation:\nFile Chunking & Memory Streaming ensures your Python ETL pipeline runs smoothly every single day.\n\nKey Points in Simple Words:\n1. What is Idempotency? It means running your ETL script 5 times gives the exact same result without making duplicate rows.\n2. How to do it: Delete old data for today's date first, then insert the new data.\n3. Easy Rule: Always handle API errors with retries and log pipeline status to Slack or email."
+      },
+      "python-etl-sub-3": {
+        "title": "Python ETL: Database Connections & SQLAlchemy",
+        "subtitle": "Question 3: What is Database Connections & SQLAlchemy in Python ETL and why is it important?",
+        "whyList": [
+          "Mastering Database Connections & SQLAlchemy is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Python ETL",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Execution Time Decorator\nimport time\n\ndef measure_time(func):\n    def wrapper(*args, **kwargs):\n        start = time.time()\n        result = func(*args, **kwargs)\n        print(f\"Done in {time.time() - start:.2f} seconds!\")\n        return result\n    return wrapper",
+        "explanation": "Simple Explanation:\nDatabase Connections & SQLAlchemy ensures your Python ETL pipeline runs smoothly every single day.\n\nKey Points in Simple Words:\n1. What is Idempotency? It means running your ETL script 5 times gives the exact same result without making duplicate rows.\n2. How to do it: Delete old data for today's date first, then insert the new data.\n3. Easy Rule: Always handle API errors with retries and log pipeline status to Slack or email."
+      },
+      "python-etl-sub-4": {
+        "title": "Python ETL: Idempotent Batch Overwrite Patterns",
+        "subtitle": "Question 4: What is Idempotent Batch Overwrite Patterns in Python ETL and why is it important?",
+        "whyList": [
+          "Mastering Idempotent Batch Overwrite Patterns is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Python ETL",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Pandas DataFrame Filter\nimport pandas as pd\n\ndef process_orders(file_path):\n    df = pd.read_csv(file_path)\n    # Remove rows where customer_id is missing\n    clean_df = df.dropna(subset=['customer_id'])\n    return clean_df",
+        "explanation": "Simple Explanation:\nIdempotent Batch Overwrite Patterns ensures your Python ETL pipeline runs smoothly every single day.\n\nKey Points in Simple Words:\n1. What is Idempotency? It means running your ETL script 5 times gives the exact same result without making duplicate rows.\n2. How to do it: Delete old data for today's date first, then insert the new data.\n3. Easy Rule: Always handle API errors with retries and log pipeline status to Slack or email."
+      },
+      "python-etl-sub-5": {
+        "title": "Python ETL: Pipeline Logging & Error Alerts",
+        "subtitle": "Question 5: What is Pipeline Logging & Error Alerts in Python ETL and why is it important?",
+        "whyList": [
+          "Mastering Pipeline Logging & Error Alerts is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Python ETL",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Python Data Filter Function\ndef clean_user_data(user_list):\n    # Keep only users with a valid email\n    valid_users = [user for user in user_list if user.get('email') is not None]\n    return valid_users",
+        "explanation": "Simple Explanation:\nPipeline Logging & Error Alerts ensures your Python ETL pipeline runs smoothly every single day.\n\nKey Points in Simple Words:\n1. What is Idempotency? It means running your ETL script 5 times gives the exact same result without making duplicate rows.\n2. How to do it: Delete old data for today's date first, then insert the new data.\n3. Easy Rule: Always handle API errors with retries and log pipeline status to Slack or email."
+      },
+      "python-etl-sub-6": {
+        "title": "Python ETL: Modular ETL Testing & Pytest",
+        "subtitle": "Question 6: What is Modular ETL Testing & Pytest in Python ETL and why is it important?",
+        "whyList": [
+          "Mastering Modular ETL Testing & Pytest is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Python ETL",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Python Generator Example\ndef read_large_csv(file_name):\n    # Yields one row at a time to save memory RAM\n    with open(file_name, 'r') as file:\n        for line in file:\n            yield line.strip().split(',')",
+        "explanation": "Simple Explanation:\nModular ETL Testing & Pytest ensures your Python ETL pipeline runs smoothly every single day.\n\nKey Points in Simple Words:\n1. What is Idempotency? It means running your ETL script 5 times gives the exact same result without making duplicate rows.\n2. How to do it: Delete old data for today's date first, then insert the new data.\n3. Easy Rule: Always handle API errors with retries and log pipeline status to Slack or email."
+      }
+    }
+  },
+  "aws": {
+    "id": "aws",
+    "title": "What is AWS (S3, EC2, Glue, Athena) in Data Engineering?",
+    "subtitle": "Learn AWS Cloud in simple words: S3 storage, EC2 instances, Glue Crawlers & Catalog, and serverless Athena SQL.",
+    "whyList": [
+      "Essential for AWS (S3, EC2, Glue, Athena) data pipeline development",
+      "Scalable production performance",
+      "Industry standard across enterprise cloud data lakes",
+      "Seamless integration with Airflow & Data Warehouses",
+      "High efficiency for batch & real-time streaming"
+    ],
+    "whereUsed": [
+      {
+        "title": "Data Engineering",
+        "desc": "AWS (S3, EC2, Glue, Athena) data pipelines & ETL automation"
+      },
+      {
+        "title": "Data Analytics",
+        "desc": "Reporting & business metrics using AWS (S3, EC2, Glue, Athena)"
+      },
+      {
+        "title": "Cloud Integration",
+        "desc": "AWS, Snowflake, Databricks & BigQuery workflows"
+      },
+      {
+        "title": "Data Quality",
+        "desc": "Automated schema validation & data integrity"
+      },
+      {
+        "title": "Ad-Hoc Querying",
+        "desc": "Fast analytical query execution"
+      }
+    ],
+    "howItWorks": [
+      {
+        "step": "1. Ingest Data",
+        "desc": "Reads source data files into AWS (S3, EC2, Glue, Athena) engine"
+      },
+      {
+        "step": "2. Query Optimizer",
+        "desc": "Compiles execution plan & optimizes joins"
+      },
+      {
+        "step": "3. Parallel Execution",
+        "desc": "Processes partitions in parallel memory RAM"
+      },
+      {
+        "step": "4. Load Output",
+        "desc": "Writes results to S3, Postgres or Snowflake"
+      }
+    ],
+    "whenToUse": [
+      "When processing AWS (S3, EC2, Glue, Athena) data transformations",
+      "When building production ETL/ELT pipelines",
+      "When optimizing data warehouse query speed",
+      "When standardizing analytics data modeling"
+    ],
+    "coreConcepts": [
+      {
+        "concept": "Amazon S3 Medallion Lakes",
+        "desc": "Core concepts and practical implementation pattern for Amazon S3 Medallion Lakes."
+      },
+      {
+        "concept": "Amazon EC2 Spot & On-Demand",
+        "desc": "Core concepts and practical implementation pattern for Amazon EC2 Spot & On-Demand."
+      },
+      {
+        "concept": "AWS Glue Data Catalog & Crawlers",
+        "desc": "Core concepts and practical implementation pattern for AWS Glue Data Catalog & Crawlers."
+      },
+      {
+        "concept": "AWS Glue PySpark Jobs",
+        "desc": "Core concepts and practical implementation pattern for AWS Glue PySpark Jobs."
+      },
+      {
+        "concept": "Amazon Athena Serverless SQL",
+        "desc": "Core concepts and practical implementation pattern for Amazon Athena Serverless SQL."
+      },
+      {
+        "concept": "AWS IAM & KMS Encryption",
+        "desc": "Core concepts and practical implementation pattern for AWS IAM & KMS Encryption."
+      }
+    ],
+    "basicCode": "# Simple Python Data Filter Function\ndef clean_user_data(user_list):\n    # Keep only users with a valid email\n    valid_users = [user for user in user_list if user.get('email') is not None]\n    return valid_users",
+    "advancedCode": "# Simple Python Generator Example\ndef read_large_csv(file_name):\n    # Yields one row at a time to save memory RAM\n    with open(file_name, 'r') as file:\n        for line in file:\n            yield line.strip().split(',')",
+    "platforms": [
+      "AWS Cloud",
+      "Databricks",
+      "Snowflake",
+      "Local Environment"
+    ],
+    "summary": "AWS (S3, EC2, Glue, Athena) = Core Data Engineering Pillar. Essential mastery for interview success.",
+    "subtopicDetails": {
+      "aws-sub-1": {
+        "title": "AWS (S3, EC2, Glue, Athena): Amazon S3 Medallion Lakes",
+        "subtitle": "Question 1: What is Amazon S3 Medallion Lakes in AWS (S3, EC2, Glue, Athena) and why is it important?",
+        "whyList": [
+          "Mastering Amazon S3 Medallion Lakes is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in AWS (S3, EC2, Glue, Athena)",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Python Data Filter Function\ndef clean_user_data(user_list):\n    # Keep only users with a valid email\n    valid_users = [user for user in user_list if user.get('email') is not None]\n    return valid_users",
+        "explanation": "Simple Explanation:\nAWS provides cloud tools like S3 for file storage, Glue for cataloging, and Athena for SQL queries.\n\nKey Points in Simple Words:\n1. S3 Storage: Organizes files into Raw (Bronze), Clean (Silver), and Business (Gold) folders.\n2. Athena SQL: Lets you query S3 files using standard SQL without managing any database servers.\n3. Cost Tip: Convert CSV files to Parquet format to scan less data and save money ($5/TB)."
+      },
+      "aws-sub-2": {
+        "title": "AWS (S3, EC2, Glue, Athena): Amazon EC2 Spot & On-Demand",
+        "subtitle": "Question 2: What is Amazon EC2 Spot & On-Demand in AWS (S3, EC2, Glue, Athena) and why is it important?",
+        "whyList": [
+          "Mastering Amazon EC2 Spot & On-Demand is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in AWS (S3, EC2, Glue, Athena)",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Python Generator Example\ndef read_large_csv(file_name):\n    # Yields one row at a time to save memory RAM\n    with open(file_name, 'r') as file:\n        for line in file:\n            yield line.strip().split(',')",
+        "explanation": "Simple Explanation:\nAWS provides cloud tools like S3 for file storage, Glue for cataloging, and Athena for SQL queries.\n\nKey Points in Simple Words:\n1. S3 Storage: Organizes files into Raw (Bronze), Clean (Silver), and Business (Gold) folders.\n2. Athena SQL: Lets you query S3 files using standard SQL without managing any database servers.\n3. Cost Tip: Convert CSV files to Parquet format to scan less data and save money ($5/TB)."
+      },
+      "aws-sub-3": {
+        "title": "AWS (S3, EC2, Glue, Athena): AWS Glue Data Catalog & Crawlers",
+        "subtitle": "Question 3: What is AWS Glue Data Catalog & Crawlers in AWS (S3, EC2, Glue, Athena) and why is it important?",
+        "whyList": [
+          "Mastering AWS Glue Data Catalog & Crawlers is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in AWS (S3, EC2, Glue, Athena)",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Execution Time Decorator\nimport time\n\ndef measure_time(func):\n    def wrapper(*args, **kwargs):\n        start = time.time()\n        result = func(*args, **kwargs)\n        print(f\"Done in {time.time() - start:.2f} seconds!\")\n        return result\n    return wrapper",
+        "explanation": "Simple Explanation:\nAWS provides cloud tools like S3 for file storage, Glue for cataloging, and Athena for SQL queries.\n\nKey Points in Simple Words:\n1. S3 Storage: Organizes files into Raw (Bronze), Clean (Silver), and Business (Gold) folders.\n2. Athena SQL: Lets you query S3 files using standard SQL without managing any database servers.\n3. Cost Tip: Convert CSV files to Parquet format to scan less data and save money ($5/TB)."
+      },
+      "aws-sub-4": {
+        "title": "AWS (S3, EC2, Glue, Athena): AWS Glue PySpark Jobs",
+        "subtitle": "Question 4: What is AWS Glue PySpark Jobs in AWS (S3, EC2, Glue, Athena) and why is it important?",
+        "whyList": [
+          "Mastering AWS Glue PySpark Jobs is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in AWS (S3, EC2, Glue, Athena)",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Pandas DataFrame Filter\nimport pandas as pd\n\ndef process_orders(file_path):\n    df = pd.read_csv(file_path)\n    # Remove rows where customer_id is missing\n    clean_df = df.dropna(subset=['customer_id'])\n    return clean_df",
+        "explanation": "Simple Explanation:\nAWS provides cloud tools like S3 for file storage, Glue for cataloging, and Athena for SQL queries.\n\nKey Points in Simple Words:\n1. S3 Storage: Organizes files into Raw (Bronze), Clean (Silver), and Business (Gold) folders.\n2. Athena SQL: Lets you query S3 files using standard SQL without managing any database servers.\n3. Cost Tip: Convert CSV files to Parquet format to scan less data and save money ($5/TB)."
+      },
+      "aws-sub-5": {
+        "title": "AWS (S3, EC2, Glue, Athena): Amazon Athena Serverless SQL",
+        "subtitle": "Question 5: What is Amazon Athena Serverless SQL in AWS (S3, EC2, Glue, Athena) and why is it important?",
+        "whyList": [
+          "Mastering Amazon Athena Serverless SQL is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in AWS (S3, EC2, Glue, Athena)",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Python Data Filter Function\ndef clean_user_data(user_list):\n    # Keep only users with a valid email\n    valid_users = [user for user in user_list if user.get('email') is not None]\n    return valid_users",
+        "explanation": "Simple Explanation:\nAWS provides cloud tools like S3 for file storage, Glue for cataloging, and Athena for SQL queries.\n\nKey Points in Simple Words:\n1. S3 Storage: Organizes files into Raw (Bronze), Clean (Silver), and Business (Gold) folders.\n2. Athena SQL: Lets you query S3 files using standard SQL without managing any database servers.\n3. Cost Tip: Convert CSV files to Parquet format to scan less data and save money ($5/TB)."
+      },
+      "aws-sub-6": {
+        "title": "AWS (S3, EC2, Glue, Athena): AWS IAM & KMS Encryption",
+        "subtitle": "Question 6: What is AWS IAM & KMS Encryption in AWS (S3, EC2, Glue, Athena) and why is it important?",
+        "whyList": [
+          "Mastering AWS IAM & KMS Encryption is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in AWS (S3, EC2, Glue, Athena)",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Python Generator Example\ndef read_large_csv(file_name):\n    # Yields one row at a time to save memory RAM\n    with open(file_name, 'r') as file:\n        for line in file:\n            yield line.strip().split(',')",
+        "explanation": "Simple Explanation:\nAWS provides cloud tools like S3 for file storage, Glue for cataloging, and Athena for SQL queries.\n\nKey Points in Simple Words:\n1. S3 Storage: Organizes files into Raw (Bronze), Clean (Silver), and Business (Gold) folders.\n2. Athena SQL: Lets you query S3 files using standard SQL without managing any database servers.\n3. Cost Tip: Convert CSV files to Parquet format to scan less data and save money ($5/TB)."
+      }
+    }
+  },
+  "pyspark": {
+    "id": "pyspark",
+    "title": "What is PySpark in Data Engineering?",
+    "subtitle": "Learn PySpark in simple words: Driver/Executors, DataFrames, Broadcast Joins, Data Skew Salting, and Caching.",
+    "whyList": [
+      "Essential for PySpark data pipeline development",
+      "Scalable production performance",
+      "Industry standard across enterprise cloud data lakes",
+      "Seamless integration with Airflow & Data Warehouses",
+      "High efficiency for batch & real-time streaming"
+    ],
+    "whereUsed": [
+      {
+        "title": "Data Engineering",
+        "desc": "PySpark data pipelines & ETL automation"
+      },
+      {
+        "title": "Data Analytics",
+        "desc": "Reporting & business metrics using PySpark"
+      },
+      {
+        "title": "Cloud Integration",
+        "desc": "AWS, Snowflake, Databricks & BigQuery workflows"
+      },
+      {
+        "title": "Data Quality",
+        "desc": "Automated schema validation & data integrity"
+      },
+      {
+        "title": "Ad-Hoc Querying",
+        "desc": "Fast analytical query execution"
+      }
+    ],
+    "howItWorks": [
+      {
+        "step": "1. Ingest Data",
+        "desc": "Reads source data files into PySpark engine"
+      },
+      {
+        "step": "2. Query Optimizer",
+        "desc": "Compiles execution plan & optimizes joins"
+      },
+      {
+        "step": "3. Parallel Execution",
+        "desc": "Processes partitions in parallel memory RAM"
+      },
+      {
+        "step": "4. Load Output",
+        "desc": "Writes results to S3, Postgres or Snowflake"
+      }
+    ],
+    "whenToUse": [
+      "When processing PySpark data transformations",
+      "When building production ETL/ELT pipelines",
+      "When optimizing data warehouse query speed",
+      "When standardizing analytics data modeling"
+    ],
+    "coreConcepts": [
+      {
+        "concept": "Driver & Executor Architecture",
+        "desc": "Core concepts and practical implementation pattern for Driver & Executor Architecture."
+      },
+      {
+        "concept": "RDD vs DataFrame APIs",
+        "desc": "Core concepts and practical implementation pattern for RDD vs DataFrame APIs."
+      },
+      {
+        "concept": "Transformations vs Actions",
+        "desc": "Core concepts and practical implementation pattern for Transformations vs Actions."
+      },
+      {
+        "concept": "Broadcast vs Sort-Merge Joins",
+        "desc": "Core concepts and practical implementation pattern for Broadcast vs Sort-Merge Joins."
+      },
+      {
+        "concept": "Data Skew & Salting Strategies",
+        "desc": "Core concepts and practical implementation pattern for Data Skew & Salting Strategies."
+      },
+      {
+        "concept": "Caching & AQE Performance Tuning",
+        "desc": "Core concepts and practical implementation pattern for Caching & AQE Performance Tuning."
+      }
+    ],
+    "basicCode": "# Simple Python Data Filter Function\ndef clean_user_data(user_list):\n    # Keep only users with a valid email\n    valid_users = [user for user in user_list if user.get('email') is not None]\n    return valid_users",
+    "advancedCode": "# Simple Python Generator Example\ndef read_large_csv(file_name):\n    # Yields one row at a time to save memory RAM\n    with open(file_name, 'r') as file:\n        for line in file:\n            yield line.strip().split(',')",
+    "platforms": [
+      "AWS Cloud",
+      "Databricks",
+      "Snowflake",
+      "Local Environment"
+    ],
+    "summary": "PySpark = Core Data Engineering Pillar. Essential mastery for interview success.",
+    "subtopicDetails": {
+      "pyspark-sub-1": {
+        "title": "PySpark: Driver & Executor Architecture",
+        "subtitle": "Question 1: What is Driver & Executor Architecture in PySpark and why is it important?",
+        "whyList": [
+          "Mastering Driver & Executor Architecture is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in PySpark",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Python Data Filter Function\ndef clean_user_data(user_list):\n    # Keep only users with a valid email\n    valid_users = [user for user in user_list if user.get('email') is not None]\n    return valid_users",
+        "explanation": "Simple Explanation:\nPySpark runs your data code across a cluster of multiple computers in parallel.\n\nKey Points in Simple Words:\n1. Driver & Executors: The Driver is the manager node; Executors are worker machines that do the heavy lifting.\n2. Broadcast Join: Copies a small lookup table (like 5MB stores list) to all worker machines to prevent slow network shuffles.\n3. Salting Data Skew: Adds random numbers to uneven join keys so all worker machines share the work equally."
+      },
+      "pyspark-sub-2": {
+        "title": "PySpark: RDD vs DataFrame APIs",
+        "subtitle": "Question 2: What is RDD vs DataFrame APIs in PySpark and why is it important?",
+        "whyList": [
+          "Mastering RDD vs DataFrame APIs is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in PySpark",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Python Generator Example\ndef read_large_csv(file_name):\n    # Yields one row at a time to save memory RAM\n    with open(file_name, 'r') as file:\n        for line in file:\n            yield line.strip().split(',')",
+        "explanation": "Simple Explanation:\nPySpark runs your data code across a cluster of multiple computers in parallel.\n\nKey Points in Simple Words:\n1. Driver & Executors: The Driver is the manager node; Executors are worker machines that do the heavy lifting.\n2. Broadcast Join: Copies a small lookup table (like 5MB stores list) to all worker machines to prevent slow network shuffles.\n3. Salting Data Skew: Adds random numbers to uneven join keys so all worker machines share the work equally."
+      },
+      "pyspark-sub-3": {
+        "title": "PySpark: Transformations vs Actions",
+        "subtitle": "Question 3: What is Transformations vs Actions in PySpark and why is it important?",
+        "whyList": [
+          "Mastering Transformations vs Actions is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in PySpark",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Execution Time Decorator\nimport time\n\ndef measure_time(func):\n    def wrapper(*args, **kwargs):\n        start = time.time()\n        result = func(*args, **kwargs)\n        print(f\"Done in {time.time() - start:.2f} seconds!\")\n        return result\n    return wrapper",
+        "explanation": "Simple Explanation:\nPySpark runs your data code across a cluster of multiple computers in parallel.\n\nKey Points in Simple Words:\n1. Driver & Executors: The Driver is the manager node; Executors are worker machines that do the heavy lifting.\n2. Broadcast Join: Copies a small lookup table (like 5MB stores list) to all worker machines to prevent slow network shuffles.\n3. Salting Data Skew: Adds random numbers to uneven join keys so all worker machines share the work equally."
+      },
+      "pyspark-sub-4": {
+        "title": "PySpark: Broadcast vs Sort-Merge Joins",
+        "subtitle": "Question 4: What is Broadcast vs Sort-Merge Joins in PySpark and why is it important?",
+        "whyList": [
+          "Mastering Broadcast vs Sort-Merge Joins is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in PySpark",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Pandas DataFrame Filter\nimport pandas as pd\n\ndef process_orders(file_path):\n    df = pd.read_csv(file_path)\n    # Remove rows where customer_id is missing\n    clean_df = df.dropna(subset=['customer_id'])\n    return clean_df",
+        "explanation": "Simple Explanation:\nPySpark runs your data code across a cluster of multiple computers in parallel.\n\nKey Points in Simple Words:\n1. Driver & Executors: The Driver is the manager node; Executors are worker machines that do the heavy lifting.\n2. Broadcast Join: Copies a small lookup table (like 5MB stores list) to all worker machines to prevent slow network shuffles.\n3. Salting Data Skew: Adds random numbers to uneven join keys so all worker machines share the work equally."
+      },
+      "pyspark-sub-5": {
+        "title": "PySpark: Data Skew & Salting Strategies",
+        "subtitle": "Question 5: What is Data Skew & Salting Strategies in PySpark and why is it important?",
+        "whyList": [
+          "Mastering Data Skew & Salting Strategies is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in PySpark",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Python Data Filter Function\ndef clean_user_data(user_list):\n    # Keep only users with a valid email\n    valid_users = [user for user in user_list if user.get('email') is not None]\n    return valid_users",
+        "explanation": "Simple Explanation:\nPySpark runs your data code across a cluster of multiple computers in parallel.\n\nKey Points in Simple Words:\n1. Driver & Executors: The Driver is the manager node; Executors are worker machines that do the heavy lifting.\n2. Broadcast Join: Copies a small lookup table (like 5MB stores list) to all worker machines to prevent slow network shuffles.\n3. Salting Data Skew: Adds random numbers to uneven join keys so all worker machines share the work equally."
+      },
+      "pyspark-sub-6": {
+        "title": "PySpark: Caching & AQE Performance Tuning",
+        "subtitle": "Question 6: What is Caching & AQE Performance Tuning in PySpark and why is it important?",
+        "whyList": [
+          "Mastering Caching & AQE Performance Tuning is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in PySpark",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Python Generator Example\ndef read_large_csv(file_name):\n    # Yields one row at a time to save memory RAM\n    with open(file_name, 'r') as file:\n        for line in file:\n            yield line.strip().split(',')",
+        "explanation": "Simple Explanation:\nPySpark runs your data code across a cluster of multiple computers in parallel.\n\nKey Points in Simple Words:\n1. Driver & Executors: The Driver is the manager node; Executors are worker machines that do the heavy lifting.\n2. Broadcast Join: Copies a small lookup table (like 5MB stores list) to all worker machines to prevent slow network shuffles.\n3. Salting Data Skew: Adds random numbers to uneven join keys so all worker machines share the work equally."
+      }
+    }
+  },
+  "hive": {
+    "id": "hive",
+    "title": "What is Hive in Data Engineering?",
+    "subtitle": "Learn Apache Hive in simple words: Hive Metastore, Managed vs External tables, Partitioning, and Bucketing.",
+    "whyList": [
+      "Essential for Hive data pipeline development",
+      "Scalable production performance",
+      "Industry standard across enterprise cloud data lakes",
+      "Seamless integration with Airflow & Data Warehouses",
+      "High efficiency for batch & real-time streaming"
+    ],
+    "whereUsed": [
+      {
+        "title": "Data Engineering",
+        "desc": "Hive data pipelines & ETL automation"
+      },
+      {
+        "title": "Data Analytics",
+        "desc": "Reporting & business metrics using Hive"
+      },
+      {
+        "title": "Cloud Integration",
+        "desc": "AWS, Snowflake, Databricks & BigQuery workflows"
+      },
+      {
+        "title": "Data Quality",
+        "desc": "Automated schema validation & data integrity"
+      },
+      {
+        "title": "Ad-Hoc Querying",
+        "desc": "Fast analytical query execution"
+      }
+    ],
+    "howItWorks": [
+      {
+        "step": "1. Ingest Data",
+        "desc": "Reads source data files into Hive engine"
+      },
+      {
+        "step": "2. Query Optimizer",
+        "desc": "Compiles execution plan & optimizes joins"
+      },
+      {
+        "step": "3. Parallel Execution",
+        "desc": "Processes partitions in parallel memory RAM"
+      },
+      {
+        "step": "4. Load Output",
+        "desc": "Writes results to S3, Postgres or Snowflake"
+      }
+    ],
+    "whenToUse": [
+      "When processing Hive data transformations",
+      "When building production ETL/ELT pipelines",
+      "When optimizing data warehouse query speed",
+      "When standardizing analytics data modeling"
+    ],
+    "coreConcepts": [
+      {
+        "concept": "Hive Metastore Architecture",
+        "desc": "Core concepts and practical implementation pattern for Hive Metastore Architecture."
+      },
+      {
+        "concept": "Managed vs External Tables",
+        "desc": "Core concepts and practical implementation pattern for Managed vs External Tables."
+      },
+      {
+        "concept": "Partitioning vs Bucketing",
+        "desc": "Core concepts and practical implementation pattern for Partitioning vs Bucketing."
+      },
+      {
+        "concept": "ORC & Parquet Vectorization",
+        "desc": "Core concepts and practical implementation pattern for ORC & Parquet Vectorization."
+      }
+    ],
+    "basicCode": "-- Find 2nd Highest Salary per Department using DENSE_RANK()\nWITH RankedSalaries AS (\n  SELECT \n    employee_id,\n    department_id,\n    salary,\n    DENSE_RANK() OVER (PARTITION BY department_id ORDER BY salary DESC) AS rk\n  FROM employees\n)\nSELECT employee_id, department_id, salary\nFROM RankedSalaries\nWHERE rk = 2;",
+    "advancedCode": "-- Find Customers with Zero Orders (Left Anti Join)\nSELECT c.customer_id, c.customer_name\nFROM customers c\nWHERE NOT EXISTS (\n  SELECT 1 FROM orders o \n  WHERE o.customer_id = c.customer_id\n);",
+    "platforms": [
+      "AWS Cloud",
+      "Databricks",
+      "Snowflake",
+      "Local Environment"
+    ],
+    "summary": "Hive = Core Data Engineering Pillar. Essential mastery for interview success.",
+    "subtopicDetails": {
+      "hive-sub-1": {
+        "title": "Hive: Hive Metastore Architecture",
+        "subtitle": "Question 1: What is Hive Metastore Architecture in Hive and why is it important?",
+        "whyList": [
+          "Mastering Hive Metastore Architecture is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Hive",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "-- Find 2nd Highest Salary per Department using DENSE_RANK()\nWITH RankedSalaries AS (\n  SELECT \n    employee_id,\n    department_id,\n    salary,\n    DENSE_RANK() OVER (PARTITION BY department_id ORDER BY salary DESC) AS rk\n  FROM employees\n)\nSELECT employee_id, department_id, salary\nFROM RankedSalaries\nWHERE rk = 2;",
+        "explanation": "Simple Explanation:\nApache Hive brings SQL query capability to Hadoop data storage.\n\nKey Points in Simple Words:\n1. Managed vs External Tables: Managed tables delete your data files when you drop the table. External tables keep your S3 files safe.\n2. Partitioning: Organizes table data into separate folders by date or region for faster queries.\n3. Easy Rule: Always use External Tables for cloud data lakes."
+      },
+      "hive-sub-2": {
+        "title": "Hive: Managed vs External Tables",
+        "subtitle": "Question 2: What is Managed vs External Tables in Hive and why is it important?",
+        "whyList": [
+          "Mastering Managed vs External Tables is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Hive",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "-- Find Customers with Zero Orders (Left Anti Join)\nSELECT c.customer_id, c.customer_name\nFROM customers c\nWHERE NOT EXISTS (\n  SELECT 1 FROM orders o \n  WHERE o.customer_id = c.customer_id\n);",
+        "explanation": "Simple Explanation:\nApache Hive brings SQL query capability to Hadoop data storage.\n\nKey Points in Simple Words:\n1. Managed vs External Tables: Managed tables delete your data files when you drop the table. External tables keep your S3 files safe.\n2. Partitioning: Organizes table data into separate folders by date or region for faster queries.\n3. Easy Rule: Always use External Tables for cloud data lakes."
+      },
+      "hive-sub-3": {
+        "title": "Hive: Partitioning vs Bucketing",
+        "subtitle": "Question 3: What is Partitioning vs Bucketing in Hive and why is it important?",
+        "whyList": [
+          "Mastering Partitioning vs Bucketing is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Hive",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "-- Calculate 7-Day Rolling Average Revenue\nSELECT \n  sale_date,\n  daily_amount,\n  AVG(daily_amount) OVER (\n    ORDER BY sale_date \n    ROWS BETWEEN 6 PRECEDING AND CURRENT ROW\n  ) AS rolling_7day_avg\nFROM daily_sales;",
+        "explanation": "Simple Explanation:\nApache Hive brings SQL query capability to Hadoop data storage.\n\nKey Points in Simple Words:\n1. Managed vs External Tables: Managed tables delete your data files when you drop the table. External tables keep your S3 files safe.\n2. Partitioning: Organizes table data into separate folders by date or region for faster queries.\n3. Easy Rule: Always use External Tables for cloud data lakes."
+      },
+      "hive-sub-4": {
+        "title": "Hive: ORC & Parquet Vectorization",
+        "subtitle": "Question 4: What is ORC & Parquet Vectorization in Hive and why is it important?",
+        "whyList": [
+          "Mastering ORC & Parquet Vectorization is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Hive",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "-- Clean Monthly Summary CTE\nWITH MonthlySales AS (\n  SELECT \n    DATE_TRUNC('month', order_date) AS sales_month,\n    SUM(amount) AS total_revenue\n  FROM orders\n  GROUP BY 1\n)\nSELECT * FROM MonthlySales WHERE total_revenue > 5000;",
+        "explanation": "Simple Explanation:\nApache Hive brings SQL query capability to Hadoop data storage.\n\nKey Points in Simple Words:\n1. Managed vs External Tables: Managed tables delete your data files when you drop the table. External tables keep your S3 files safe.\n2. Partitioning: Organizes table data into separate folders by date or region for faster queries.\n3. Easy Rule: Always use External Tables for cloud data lakes."
+      }
+    }
+  },
+  "hadoop": {
+    "id": "hadoop",
+    "title": "What is Hadoop in Data Engineering?",
+    "subtitle": "Learn Hadoop in simple words: HDFS NameNode, DataNodes, YARN container scheduling, and MapReduce phases.",
+    "whyList": [
+      "Essential for Hadoop data pipeline development",
+      "Scalable production performance",
+      "Industry standard across enterprise cloud data lakes",
+      "Seamless integration with Airflow & Data Warehouses",
+      "High efficiency for batch & real-time streaming"
+    ],
+    "whereUsed": [
+      {
+        "title": "Data Engineering",
+        "desc": "Hadoop data pipelines & ETL automation"
+      },
+      {
+        "title": "Data Analytics",
+        "desc": "Reporting & business metrics using Hadoop"
+      },
+      {
+        "title": "Cloud Integration",
+        "desc": "AWS, Snowflake, Databricks & BigQuery workflows"
+      },
+      {
+        "title": "Data Quality",
+        "desc": "Automated schema validation & data integrity"
+      },
+      {
+        "title": "Ad-Hoc Querying",
+        "desc": "Fast analytical query execution"
+      }
+    ],
+    "howItWorks": [
+      {
+        "step": "1. Ingest Data",
+        "desc": "Reads source data files into Hadoop engine"
+      },
+      {
+        "step": "2. Query Optimizer",
+        "desc": "Compiles execution plan & optimizes joins"
+      },
+      {
+        "step": "3. Parallel Execution",
+        "desc": "Processes partitions in parallel memory RAM"
+      },
+      {
+        "step": "4. Load Output",
+        "desc": "Writes results to S3, Postgres or Snowflake"
+      }
+    ],
+    "whenToUse": [
+      "When processing Hadoop data transformations",
+      "When building production ETL/ELT pipelines",
+      "When optimizing data warehouse query speed",
+      "When standardizing analytics data modeling"
+    ],
+    "coreConcepts": [
+      {
+        "concept": "HDFS NameNode & DataNode",
+        "desc": "Core concepts and practical implementation pattern for HDFS NameNode & DataNode."
+      },
+      {
+        "concept": "HDFS Read & Write Data Flow",
+        "desc": "Core concepts and practical implementation pattern for HDFS Read & Write Data Flow."
+      },
+      {
+        "concept": "YARN Container Scheduling",
+        "desc": "Core concepts and practical implementation pattern for YARN Container Scheduling."
+      },
+      {
+        "concept": "MapReduce Map & Reduce Phases",
+        "desc": "Core concepts and practical implementation pattern for MapReduce Map & Reduce Phases."
+      }
+    ],
+    "basicCode": "# Simple Python Data Filter Function\ndef clean_user_data(user_list):\n    # Keep only users with a valid email\n    valid_users = [user for user in user_list if user.get('email') is not None]\n    return valid_users",
+    "advancedCode": "# Simple Python Generator Example\ndef read_large_csv(file_name):\n    # Yields one row at a time to save memory RAM\n    with open(file_name, 'r') as file:\n        for line in file:\n            yield line.strip().split(',')",
+    "platforms": [
+      "AWS Cloud",
+      "Databricks",
+      "Snowflake",
+      "Local Environment"
+    ],
+    "summary": "Hadoop = Core Data Engineering Pillar. Essential mastery for interview success.",
+    "subtopicDetails": {
+      "hadoop-sub-1": {
+        "title": "Hadoop: HDFS NameNode & DataNode",
+        "subtitle": "Question 1: What is HDFS NameNode & DataNode in Hadoop and why is it important?",
+        "whyList": [
+          "Mastering HDFS NameNode & DataNode is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Hadoop",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Python Data Filter Function\ndef clean_user_data(user_list):\n    # Keep only users with a valid email\n    valid_users = [user for user in user_list if user.get('email') is not None]\n    return valid_users",
+        "explanation": "Simple Explanation:\nHadoop stores and processes massive data across hundreds of computers.\n\nKey Points in Simple Words:\n1. HDFS (Storage): NameNode manages metadata; DataNodes store 128MB blocks across 3 different servers for safety.\n2. YARN (Manager): Allocates RAM and CPU resources to running applications.\n3. MapReduce: Map phase reads & filters data; Reduce phase aggregates final answers."
+      },
+      "hadoop-sub-2": {
+        "title": "Hadoop: HDFS Read & Write Data Flow",
+        "subtitle": "Question 2: What is HDFS Read & Write Data Flow in Hadoop and why is it important?",
+        "whyList": [
+          "Mastering HDFS Read & Write Data Flow is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Hadoop",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Python Generator Example\ndef read_large_csv(file_name):\n    # Yields one row at a time to save memory RAM\n    with open(file_name, 'r') as file:\n        for line in file:\n            yield line.strip().split(',')",
+        "explanation": "Simple Explanation:\nHadoop stores and processes massive data across hundreds of computers.\n\nKey Points in Simple Words:\n1. HDFS (Storage): NameNode manages metadata; DataNodes store 128MB blocks across 3 different servers for safety.\n2. YARN (Manager): Allocates RAM and CPU resources to running applications.\n3. MapReduce: Map phase reads & filters data; Reduce phase aggregates final answers."
+      },
+      "hadoop-sub-3": {
+        "title": "Hadoop: YARN Container Scheduling",
+        "subtitle": "Question 3: What is YARN Container Scheduling in Hadoop and why is it important?",
+        "whyList": [
+          "Mastering YARN Container Scheduling is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Hadoop",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Execution Time Decorator\nimport time\n\ndef measure_time(func):\n    def wrapper(*args, **kwargs):\n        start = time.time()\n        result = func(*args, **kwargs)\n        print(f\"Done in {time.time() - start:.2f} seconds!\")\n        return result\n    return wrapper",
+        "explanation": "Simple Explanation:\nHadoop stores and processes massive data across hundreds of computers.\n\nKey Points in Simple Words:\n1. HDFS (Storage): NameNode manages metadata; DataNodes store 128MB blocks across 3 different servers for safety.\n2. YARN (Manager): Allocates RAM and CPU resources to running applications.\n3. MapReduce: Map phase reads & filters data; Reduce phase aggregates final answers."
+      },
+      "hadoop-sub-4": {
+        "title": "Hadoop: MapReduce Map & Reduce Phases",
+        "subtitle": "Question 4: What is MapReduce Map & Reduce Phases in Hadoop and why is it important?",
+        "whyList": [
+          "Mastering MapReduce Map & Reduce Phases is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Hadoop",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "# Simple Pandas DataFrame Filter\nimport pandas as pd\n\ndef process_orders(file_path):\n    df = pd.read_csv(file_path)\n    # Remove rows where customer_id is missing\n    clean_df = df.dropna(subset=['customer_id'])\n    return clean_df",
+        "explanation": "Simple Explanation:\nHadoop stores and processes massive data across hundreds of computers.\n\nKey Points in Simple Words:\n1. HDFS (Storage): NameNode manages metadata; DataNodes store 128MB blocks across 3 different servers for safety.\n2. YARN (Manager): Allocates RAM and CPU resources to running applications.\n3. MapReduce: Map phase reads & filters data; Reduce phase aggregates final answers."
+      }
+    }
+  },
+  "snowflake": {
+    "id": "snowflake",
+    "title": "What is Snowflake in Data Engineering?",
+    "subtitle": "Learn Snowflake in simple words: Storage/Compute separation, Micro-partitions, Zero-Copy Cloning, and Snowpipe.",
+    "whyList": [
+      "Essential for Snowflake data pipeline development",
+      "Scalable production performance",
+      "Industry standard across enterprise cloud data lakes",
+      "Seamless integration with Airflow & Data Warehouses",
+      "High efficiency for batch & real-time streaming"
+    ],
+    "whereUsed": [
+      {
+        "title": "Data Engineering",
+        "desc": "Snowflake data pipelines & ETL automation"
+      },
+      {
+        "title": "Data Analytics",
+        "desc": "Reporting & business metrics using Snowflake"
+      },
+      {
+        "title": "Cloud Integration",
+        "desc": "AWS, Snowflake, Databricks & BigQuery workflows"
+      },
+      {
+        "title": "Data Quality",
+        "desc": "Automated schema validation & data integrity"
+      },
+      {
+        "title": "Ad-Hoc Querying",
+        "desc": "Fast analytical query execution"
+      }
+    ],
+    "howItWorks": [
+      {
+        "step": "1. Ingest Data",
+        "desc": "Reads source data files into Snowflake engine"
+      },
+      {
+        "step": "2. Query Optimizer",
+        "desc": "Compiles execution plan & optimizes joins"
+      },
+      {
+        "step": "3. Parallel Execution",
+        "desc": "Processes partitions in parallel memory RAM"
+      },
+      {
+        "step": "4. Load Output",
+        "desc": "Writes results to S3, Postgres or Snowflake"
+      }
+    ],
+    "whenToUse": [
+      "When processing Snowflake data transformations",
+      "When building production ETL/ELT pipelines",
+      "When optimizing data warehouse query speed",
+      "When standardizing analytics data modeling"
+    ],
+    "coreConcepts": [
+      {
+        "concept": "Snowflake 3-Layer Decoupled Architecture",
+        "desc": "Core concepts and practical implementation pattern for Snowflake 3-Layer Decoupled Architecture."
+      },
+      {
+        "concept": "Micro-partitions & Pruning",
+        "desc": "Core concepts and practical implementation pattern for Micro-partitions & Pruning."
+      },
+      {
+        "concept": "Virtual Warehouse Scaling",
+        "desc": "Core concepts and practical implementation pattern for Virtual Warehouse Scaling."
+      },
+      {
+        "concept": "Zero-Copy Cloning & Time Travel",
+        "desc": "Core concepts and practical implementation pattern for Zero-Copy Cloning & Time Travel."
+      },
+      {
+        "concept": "Snowpipe Ingestion Pipelines",
+        "desc": "Core concepts and practical implementation pattern for Snowpipe Ingestion Pipelines."
+      }
+    ],
+    "basicCode": "-- Find 2nd Highest Salary per Department using DENSE_RANK()\nWITH RankedSalaries AS (\n  SELECT \n    employee_id,\n    department_id,\n    salary,\n    DENSE_RANK() OVER (PARTITION BY department_id ORDER BY salary DESC) AS rk\n  FROM employees\n)\nSELECT employee_id, department_id, salary\nFROM RankedSalaries\nWHERE rk = 2;",
+    "advancedCode": "-- Find Customers with Zero Orders (Left Anti Join)\nSELECT c.customer_id, c.customer_name\nFROM customers c\nWHERE NOT EXISTS (\n  SELECT 1 FROM orders o \n  WHERE o.customer_id = c.customer_id\n);",
+    "platforms": [
+      "AWS Cloud",
+      "Databricks",
+      "Snowflake",
+      "Local Environment"
+    ],
+    "summary": "Snowflake = Core Data Engineering Pillar. Essential mastery for interview success.",
+    "subtopicDetails": {
+      "snowflake-sub-1": {
+        "title": "Snowflake: Snowflake 3-Layer Decoupled Architecture",
+        "subtitle": "Question 1: What is Snowflake 3-Layer Decoupled Architecture in Snowflake and why is it important?",
+        "whyList": [
+          "Mastering Snowflake 3-Layer Decoupled Architecture is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Snowflake",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "-- Find 2nd Highest Salary per Department using DENSE_RANK()\nWITH RankedSalaries AS (\n  SELECT \n    employee_id,\n    department_id,\n    salary,\n    DENSE_RANK() OVER (PARTITION BY department_id ORDER BY salary DESC) AS rk\n  FROM employees\n)\nSELECT employee_id, department_id, salary\nFROM RankedSalaries\nWHERE rk = 2;",
+        "explanation": "Simple Explanation:\nSnowflake is a cloud data warehouse that separates storage and compute.\n\nKey Points in Simple Words:\n1. Storage & Compute: Micro-partitions store data in S3; Virtual Warehouses provide compute power on demand.\n2. Zero-Copy Cloning: Creates an instant copy of a database without taking up extra storage space.\n3. Snowpipe: Automatically loads new files into Snowflake as soon as they arrive in S3."
+      },
+      "snowflake-sub-2": {
+        "title": "Snowflake: Micro-partitions & Pruning",
+        "subtitle": "Question 2: What is Micro-partitions & Pruning in Snowflake and why is it important?",
+        "whyList": [
+          "Mastering Micro-partitions & Pruning is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Snowflake",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "-- Find Customers with Zero Orders (Left Anti Join)\nSELECT c.customer_id, c.customer_name\nFROM customers c\nWHERE NOT EXISTS (\n  SELECT 1 FROM orders o \n  WHERE o.customer_id = c.customer_id\n);",
+        "explanation": "Simple Explanation:\nSnowflake is a cloud data warehouse that separates storage and compute.\n\nKey Points in Simple Words:\n1. Storage & Compute: Micro-partitions store data in S3; Virtual Warehouses provide compute power on demand.\n2. Zero-Copy Cloning: Creates an instant copy of a database without taking up extra storage space.\n3. Snowpipe: Automatically loads new files into Snowflake as soon as they arrive in S3."
+      },
+      "snowflake-sub-3": {
+        "title": "Snowflake: Virtual Warehouse Scaling",
+        "subtitle": "Question 3: What is Virtual Warehouse Scaling in Snowflake and why is it important?",
+        "whyList": [
+          "Mastering Virtual Warehouse Scaling is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Snowflake",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "-- Calculate 7-Day Rolling Average Revenue\nSELECT \n  sale_date,\n  daily_amount,\n  AVG(daily_amount) OVER (\n    ORDER BY sale_date \n    ROWS BETWEEN 6 PRECEDING AND CURRENT ROW\n  ) AS rolling_7day_avg\nFROM daily_sales;",
+        "explanation": "Simple Explanation:\nSnowflake is a cloud data warehouse that separates storage and compute.\n\nKey Points in Simple Words:\n1. Storage & Compute: Micro-partitions store data in S3; Virtual Warehouses provide compute power on demand.\n2. Zero-Copy Cloning: Creates an instant copy of a database without taking up extra storage space.\n3. Snowpipe: Automatically loads new files into Snowflake as soon as they arrive in S3."
+      },
+      "snowflake-sub-4": {
+        "title": "Snowflake: Zero-Copy Cloning & Time Travel",
+        "subtitle": "Question 4: What is Zero-Copy Cloning & Time Travel in Snowflake and why is it important?",
+        "whyList": [
+          "Mastering Zero-Copy Cloning & Time Travel is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Snowflake",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "-- Clean Monthly Summary CTE\nWITH MonthlySales AS (\n  SELECT \n    DATE_TRUNC('month', order_date) AS sales_month,\n    SUM(amount) AS total_revenue\n  FROM orders\n  GROUP BY 1\n)\nSELECT * FROM MonthlySales WHERE total_revenue > 5000;",
+        "explanation": "Simple Explanation:\nSnowflake is a cloud data warehouse that separates storage and compute.\n\nKey Points in Simple Words:\n1. Storage & Compute: Micro-partitions store data in S3; Virtual Warehouses provide compute power on demand.\n2. Zero-Copy Cloning: Creates an instant copy of a database without taking up extra storage space.\n3. Snowpipe: Automatically loads new files into Snowflake as soon as they arrive in S3."
+      },
+      "snowflake-sub-5": {
+        "title": "Snowflake: Snowpipe Ingestion Pipelines",
+        "subtitle": "Question 5: What is Snowpipe Ingestion Pipelines in Snowflake and why is it important?",
+        "whyList": [
+          "Mastering Snowpipe Ingestion Pipelines is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in Snowflake",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "-- Find 2nd Highest Salary per Department using DENSE_RANK()\nWITH RankedSalaries AS (\n  SELECT \n    employee_id,\n    department_id,\n    salary,\n    DENSE_RANK() OVER (PARTITION BY department_id ORDER BY salary DESC) AS rk\n  FROM employees\n)\nSELECT employee_id, department_id, salary\nFROM RankedSalaries\nWHERE rk = 2;",
+        "explanation": "Simple Explanation:\nSnowflake is a cloud data warehouse that separates storage and compute.\n\nKey Points in Simple Words:\n1. Storage & Compute: Micro-partitions store data in S3; Virtual Warehouses provide compute power on demand.\n2. Zero-Copy Cloning: Creates an instant copy of a database without taking up extra storage space.\n3. Snowpipe: Automatically loads new files into Snowflake as soon as they arrive in S3."
+      }
+    }
+  },
+  "dbt": {
+    "id": "dbt",
+    "title": "What is dbt in Data Engineering?",
+    "subtitle": "Learn dbt in simple words: Staging to Marts modeling, View vs Table vs Incremental materializations, and schema testing.",
+    "whyList": [
+      "Essential for dbt data pipeline development",
+      "Scalable production performance",
+      "Industry standard across enterprise cloud data lakes",
+      "Seamless integration with Airflow & Data Warehouses",
+      "High efficiency for batch & real-time streaming"
+    ],
+    "whereUsed": [
+      {
+        "title": "Data Engineering",
+        "desc": "dbt data pipelines & ETL automation"
+      },
+      {
+        "title": "Data Analytics",
+        "desc": "Reporting & business metrics using dbt"
+      },
+      {
+        "title": "Cloud Integration",
+        "desc": "AWS, Snowflake, Databricks & BigQuery workflows"
+      },
+      {
+        "title": "Data Quality",
+        "desc": "Automated schema validation & data integrity"
+      },
+      {
+        "title": "Ad-Hoc Querying",
+        "desc": "Fast analytical query execution"
+      }
+    ],
+    "howItWorks": [
+      {
+        "step": "1. Ingest Data",
+        "desc": "Reads source data files into dbt engine"
+      },
+      {
+        "step": "2. Query Optimizer",
+        "desc": "Compiles execution plan & optimizes joins"
+      },
+      {
+        "step": "3. Parallel Execution",
+        "desc": "Processes partitions in parallel memory RAM"
+      },
+      {
+        "step": "4. Load Output",
+        "desc": "Writes results to S3, Postgres or Snowflake"
+      }
+    ],
+    "whenToUse": [
+      "When processing dbt data transformations",
+      "When building production ETL/ELT pipelines",
+      "When optimizing data warehouse query speed",
+      "When standardizing analytics data modeling"
+    ],
+    "coreConcepts": [
+      {
+        "concept": "dbt Staging → Marts DAG Architecture",
+        "desc": "Core concepts and practical implementation pattern for dbt Staging → Marts DAG Architecture."
+      },
+      {
+        "concept": "Materializations (View, Table, Incremental)",
+        "desc": "Core concepts and practical implementation pattern for Materializations (View, Table, Incremental)."
+      },
+      {
+        "concept": "Incremental Models & unique_key Merges",
+        "desc": "Core concepts and practical implementation pattern for Incremental Models & unique_key Merges."
+      },
+      {
+        "concept": "dbt Generic & Singular Testing",
+        "desc": "Core concepts and practical implementation pattern for dbt Generic & Singular Testing."
+      }
+    ],
+    "basicCode": "-- Find 2nd Highest Salary per Department using DENSE_RANK()\nWITH RankedSalaries AS (\n  SELECT \n    employee_id,\n    department_id,\n    salary,\n    DENSE_RANK() OVER (PARTITION BY department_id ORDER BY salary DESC) AS rk\n  FROM employees\n)\nSELECT employee_id, department_id, salary\nFROM RankedSalaries\nWHERE rk = 2;",
+    "advancedCode": "-- Find Customers with Zero Orders (Left Anti Join)\nSELECT c.customer_id, c.customer_name\nFROM customers c\nWHERE NOT EXISTS (\n  SELECT 1 FROM orders o \n  WHERE o.customer_id = c.customer_id\n);",
+    "platforms": [
+      "AWS Cloud",
+      "Databricks",
+      "Snowflake",
+      "Local Environment"
+    ],
+    "summary": "dbt = Core Data Engineering Pillar. Essential mastery for interview success.",
+    "subtopicDetails": {
+      "dbt-sub-1": {
+        "title": "dbt: dbt Staging → Marts DAG Architecture",
+        "subtitle": "Question 1: What is dbt Staging → Marts DAG Architecture in dbt and why is it important?",
+        "whyList": [
+          "Mastering dbt Staging → Marts DAG Architecture is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in dbt",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "-- Find 2nd Highest Salary per Department using DENSE_RANK()\nWITH RankedSalaries AS (\n  SELECT \n    employee_id,\n    department_id,\n    salary,\n    DENSE_RANK() OVER (PARTITION BY department_id ORDER BY salary DESC) AS rk\n  FROM employees\n)\nSELECT employee_id, department_id, salary\nFROM RankedSalaries\nWHERE rk = 2;",
+        "explanation": "Simple Explanation:\ndbt allows data engineers to transform data inside their warehouse using SQL SELECT statements.\n\nKey Points in Simple Words:\n1. Data Layers: Staging (stg_) cleans raw data → Marts (fct_/dim_) builds final business tables.\n2. Incremental Models: Loads only new or updated rows since the last execution using MERGE INTO.\n3. Testing: Automatically checks for null values or duplicate IDs to ensure high data quality."
+      },
+      "dbt-sub-2": {
+        "title": "dbt: Materializations (View, Table, Incremental)",
+        "subtitle": "Question 2: What is Materializations (View, Table, Incremental) in dbt and why is it important?",
+        "whyList": [
+          "Mastering Materializations (View, Table, Incremental) is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in dbt",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "-- Find Customers with Zero Orders (Left Anti Join)\nSELECT c.customer_id, c.customer_name\nFROM customers c\nWHERE NOT EXISTS (\n  SELECT 1 FROM orders o \n  WHERE o.customer_id = c.customer_id\n);",
+        "explanation": "Simple Explanation:\ndbt allows data engineers to transform data inside their warehouse using SQL SELECT statements.\n\nKey Points in Simple Words:\n1. Data Layers: Staging (stg_) cleans raw data → Marts (fct_/dim_) builds final business tables.\n2. Incremental Models: Loads only new or updated rows since the last execution using MERGE INTO.\n3. Testing: Automatically checks for null values or duplicate IDs to ensure high data quality."
+      },
+      "dbt-sub-3": {
+        "title": "dbt: Incremental Models & unique_key Merges",
+        "subtitle": "Question 3: What is Incremental Models & unique_key Merges in dbt and why is it important?",
+        "whyList": [
+          "Mastering Incremental Models & unique_key Merges is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in dbt",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "-- Calculate 7-Day Rolling Average Revenue\nSELECT \n  sale_date,\n  daily_amount,\n  AVG(daily_amount) OVER (\n    ORDER BY sale_date \n    ROWS BETWEEN 6 PRECEDING AND CURRENT ROW\n  ) AS rolling_7day_avg\nFROM daily_sales;",
+        "explanation": "Simple Explanation:\ndbt allows data engineers to transform data inside their warehouse using SQL SELECT statements.\n\nKey Points in Simple Words:\n1. Data Layers: Staging (stg_) cleans raw data → Marts (fct_/dim_) builds final business tables.\n2. Incremental Models: Loads only new or updated rows since the last execution using MERGE INTO.\n3. Testing: Automatically checks for null values or duplicate IDs to ensure high data quality."
+      },
+      "dbt-sub-4": {
+        "title": "dbt: dbt Generic & Singular Testing",
+        "subtitle": "Question 4: What is dbt Generic & Singular Testing in dbt and why is it important?",
+        "whyList": [
+          "Mastering dbt Generic & Singular Testing is a key requirement in data engineering technical interviews",
+          "Solves real-world production performance bottlenecks in dbt",
+          "Prevents system failures, memory crashes, and invalid data joins",
+          "Used daily in production Airflow DAGs & Data Warehouse pipelines"
+        ],
+        "codeSnippet": "-- Clean Monthly Summary CTE\nWITH MonthlySales AS (\n  SELECT \n    DATE_TRUNC('month', order_date) AS sales_month,\n    SUM(amount) AS total_revenue\n  FROM orders\n  GROUP BY 1\n)\nSELECT * FROM MonthlySales WHERE total_revenue > 5000;",
+        "explanation": "Simple Explanation:\ndbt allows data engineers to transform data inside their warehouse using SQL SELECT statements.\n\nKey Points in Simple Words:\n1. Data Layers: Staging (stg_) cleans raw data → Marts (fct_/dim_) builds final business tables.\n2. Incremental Models: Loads only new or updated rows since the last execution using MERGE INTO.\n3. Testing: Automatically checks for null values or duplicate IDs to ensure high data quality."
+      }
+    }
+  }
+}

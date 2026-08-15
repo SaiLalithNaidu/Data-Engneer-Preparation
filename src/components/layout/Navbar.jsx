@@ -3,12 +3,15 @@ import {
   Search, 
   Sun, 
   Moon, 
+  Sparkles,
   Menu,
   LogOut,
   UserCheck
 } from 'lucide-react';
 
 export default function Navbar({ 
+  activeTab,
+  setActiveTab,
   searchQuery, 
   setSearchQuery, 
   isDarkMode, 
@@ -30,8 +33,8 @@ export default function Navbar({
     }`}>
       <div className="px-3 sm:px-6 py-2.5 flex items-center justify-between gap-2.5">
         
-        {/* Left Mobile Menu Toggle */}
-        <div className="flex items-center gap-2">
+        {/* Left Mobile Menu Toggle & Main Section Tabs */}
+        <div className="flex items-center gap-2 sm:gap-3">
           <button
             onClick={onToggleMobileSidebar}
             className="lg:hidden p-2 rounded-xl border border-slate-700/50 hover:bg-slate-800 text-slate-300 flex-shrink-0"
@@ -40,23 +43,52 @@ export default function Navbar({
             <Menu className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
 
-          {/* Quick Filter Pill Tabs - Horizontally Scrollable on Mobile */}
-          <div className="hidden lg:flex items-center gap-1.5 p-1 rounded-xl border bg-slate-100 dark:bg-slate-950 border-inherit">
-            {filterTabs.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveFilterTab(tab)}
-                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all whitespace-nowrap ${
-                  activeFilterTab === tab
-                    ? 'bg-indigo-600 text-white shadow-xs'
-                    : isDarkMode 
-                      ? 'text-slate-400 hover:text-slate-200 hover:bg-slate-900' 
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200'
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
+          {/* Section Mode Switcher Pills */}
+          <div className="flex items-center gap-1.5 p-1 rounded-xl border bg-slate-100 dark:bg-slate-950 border-inherit text-xs font-bold overflow-x-auto whitespace-nowrap">
+            <button
+              onClick={() => setActiveTab('topic')}
+              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg transition-all ${
+                activeTab === 'topic'
+                  ? 'bg-indigo-600 text-white shadow-xs'
+                  : isDarkMode ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Interview Questions
+            </button>
+
+            <button
+              onClick={() => setActiveTab('infographic')}
+              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg transition-all flex items-center gap-1 ${
+                activeTab === 'infographic'
+                  ? 'bg-indigo-600 text-white shadow-xs'
+                  : isDarkMode ? 'text-indigo-400 hover:text-white' : 'text-indigo-600 hover:text-slate-900'
+              }`}
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Infographic Cheat Sheet</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('concepts')}
+              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg transition-all flex items-center gap-1 ${
+                activeTab === 'concepts'
+                  ? 'bg-indigo-600 text-white shadow-xs'
+                  : isDarkMode ? 'text-indigo-400 hover:text-white' : 'text-indigo-600 hover:text-slate-900'
+              }`}
+            >
+              <span>Real-Time Concept Guide</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('practice')}
+              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg transition-all hidden md:block ${
+                activeTab === 'practice'
+                  ? 'bg-emerald-600 text-white shadow-xs'
+                  : isDarkMode ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Mock Practice
+            </button>
           </div>
         </div>
 

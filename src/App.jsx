@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from './components/layout/Sidebar';
 import Navbar from './components/layout/Navbar';
+import TopicInfographicView from './components/interview/TopicInfographicView';
+import RealTimeConceptView from './components/interview/RealTimeConceptView';
 import TopicInterviewView from './components/interview/TopicInterviewView';
 import MockPracticeView from './components/interview/MockPracticeView';
 import PdfViewerModal from './components/modules/PdfViewerModal';
@@ -148,6 +150,8 @@ export default function App() {
         
         {/* Top Navbar */}
         <Navbar
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           isDarkMode={isDarkMode}
@@ -170,6 +174,22 @@ export default function App() {
               selectedSubtopicId={selectedSubtopicId}
               masteredQIds={masteredQIds}
               onToggleMastered={handleToggleMastered}
+              isDarkMode={isDarkMode}
+            />
+          )}
+
+          {activeTab === 'infographic' && (
+            <TopicInfographicView
+              topicId={selectedTopicId}
+              selectedSubtopicId={selectedSubtopicId}
+              isDarkMode={isDarkMode}
+            />
+          )}
+
+          {activeTab === 'concepts' && (
+            <RealTimeConceptView
+              topicId={selectedTopicId}
+              selectedSubtopicId={selectedSubtopicId}
               isDarkMode={isDarkMode}
             />
           )}
