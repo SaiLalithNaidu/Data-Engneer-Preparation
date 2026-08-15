@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    --font-mono: 'Fira Code', monospace;
+  }
+}
+
+/* Day Mode (Light Theme - NxtWave Exact Match) */
+.light-mode {
+  --bg-main: #f3f7fe;
+  --bg-sidebar: #ffffff;
+  --bg-card: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --active-pill-bg: #ffffff;
+  --active-pill-shadow: 0 2px 10px rgba(99, 102, 241, 0.08);
+}
+
+/* Night Mode (Dark Theme) */
+.dark-mode {
+  --bg-main: #060b13;
+  --bg-sidebar: #0b111e;
+  --bg-card: #0f172a;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border-color: #1e293b;
+  --active-pill-bg: #1e1b4b;
+  --active-pill-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 1.5;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Section divider rule line matching reference screenshot */
+.sidebar-section-title {
+  display: flex;
+  items-center: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.sidebar-section-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: var(--border-color);
+}
+
+/* Custom Scrollbar styling */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+.dark-mode ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
