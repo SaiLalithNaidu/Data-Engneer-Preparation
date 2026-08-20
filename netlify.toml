@@ -1,0 +1,21 @@
+# Netlify Build & Route Configuration
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20.x"
+
+# 1. Reverse proxy /api/* requests to AWS EC2 backend (Fixes HTTPS mixed content)
+[[redirects]]
+  from = "/api/*"
+  to = "http://52.228.19.191:5100/api/:splat"
+  status = 200
+  force = true
+
+# 2. SPA client-side routing fallback
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
