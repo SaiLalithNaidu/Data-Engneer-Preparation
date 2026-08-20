@@ -207,8 +207,8 @@ export default function TopicInterviewView({
                         {q.difficulty}
                       </span>
 
-                      {q.companyTags && q.companyTags.map(tag => (
-                        <span key={tag} className="text-[10px] font-semibold px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full border border-slate-200 dark:border-slate-700">
+                      {q.companyTags && q.companyTags.map((tag, tagIdx) => (
+                        <span key={`${tag}-${tagIdx}`} className="text-[10px] font-semibold px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full border border-slate-200 dark:border-slate-700">
                           {tag}
                         </span>
                       ))}

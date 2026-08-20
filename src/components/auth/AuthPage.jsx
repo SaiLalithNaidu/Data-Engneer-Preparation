@@ -338,9 +338,21 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
             <div className="p-4 sm:p-6 space-y-4">
               
               {errorMsg && (
-                <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-500 text-xs font-semibold flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 flex-shrink-0" />
-                  <span>{errorMsg}</span>
+                <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-500 text-xs font-semibold space-y-2">
+                  <div className="flex items-start gap-2">
+                    <ShieldCheck className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                    <span className="leading-snug">{errorMsg}</span>
+                  </div>
+                  {(errorMsg.includes('504') || errorMsg.includes('offline') || errorMsg.includes('unreachable') || errorMsg.includes('timeout')) && (
+                    <button
+                      type="button"
+                      onClick={() => handleDemoLogin('Data Engineer')}
+                      className="w-full mt-1.5 py-1.5 px-3 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 font-bold text-[11px] flex items-center justify-center gap-1.5 transition-all border border-rose-500/40"
+                    >
+                      <Sparkles className="w-3.5 h-3.5" />
+                      <span>Continue in Guest / Offline Mode</span>
+                    </button>
+                  )}
                 </div>
               )}
 

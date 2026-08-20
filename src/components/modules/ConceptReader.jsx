@@ -213,8 +213,8 @@ export default function ConceptReader({
                       <span className="text-[10px] font-bold px-2 py-0.5 bg-indigo-600 text-white rounded">
                         Q{idx + 1}
                       </span>
-                      {q.companyTags && q.companyTags.map(tag => (
-                        <span key={tag} className={`text-[9px] font-semibold px-2 py-0.5 rounded-full ${
+                      {q.companyTags && q.companyTags.map((tag, tagIdx) => (
+                        <span key={`${tag}-${tagIdx}`} className={`text-[9px] font-semibold px-2 py-0.5 rounded-full ${
                           isDarkMode ? 'bg-slate-800 text-slate-300' : 'bg-slate-200 text-slate-700'
                         }`}>
                           {tag}

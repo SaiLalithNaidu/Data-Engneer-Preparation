@@ -37,6 +37,16 @@ export default function App() {
   // Fetch individual user progress from backend API when logged in
   useEffect(() => {
     if (authToken && currentUser) {
+      // First initialize from local storage for instant speed and offline backup
+      const userKey = currentUser.email || currentUser.id || 'default';
+      const localSaved = localStorage.getItem(`de_mastered_${userKey}`);
+      if (localSaved) {
+        try {
+          setMasteredQIds(JSON.parse(localSaved));
+        } catch (e) {}
+      }
+
+      // Sync with backend API
       apiFetch('/user/progress', {
         headers: {
           'Authorization': `Bearer ${authToken}`
@@ -44,12 +54,15 @@ export default function App() {
       })
       .then(res => res.json())
       .then(data => {
-        if (data.success && Array.isArray(data.masteredQIds)) {
+        if (data && data.success && Array.isArray(data.masteredQIds)) {
           setMasteredQIds(data.masteredQIds);
+          localStorage.setItem(`de_mastered_${userKey}`, JSON.stringify(data.masteredQIds));
+        } else if (data && !data.success) {
+          console.info('[PROGRESS SYNC NOTICE]', data.message);
         }
       })
       .catch(err => {
-        console.warn('Backend progress fetch error:', err);
+        console.warn('Backend progress fetch notice (using local cache):', err.message);
       });
     } else {
       setMasteredQIds([]);
@@ -88,7 +101,7 @@ export default function App() {
     localStorage.removeItem('de_auth_token');
   };
 
-  // Toggle Mastered Question with Backend Database Sync
+  // Toggle Mastered Question with Backend Database Sync & Local Backup
   const handleToggleMastered = (qId) => {
     const updated = masteredQIds.includes(qId)
       ? masteredQIds.filter(id => id !== qId)
@@ -96,8 +109,13 @@ export default function App() {
 
     setMasteredQIds(updated);
 
+    if (currentUser) {
+      const userKey = currentUser.email || currentUser.id || 'default';
+      localStorage.setItem(`de_mastered_${userKey}`, JSON.stringify(updated));
+    }
+
     // Save to backend database for logged in user
-    if (authToken) {
+    if (authToken && !authToken.startsWith('guest_')) {
       apiFetch('/user/progress', {
         method: 'POST',
         headers: {
