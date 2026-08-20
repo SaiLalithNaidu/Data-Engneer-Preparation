@@ -17,8 +17,7 @@ import {
   Database
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
-
-const API_BASE = 'http://localhost:5000/api';
+import { apiFetch } from '../../api/client';
 
 export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) {
   const [authMode, setAuthMode] = useState('signin'); // 'signin' or 'signup'
@@ -57,7 +56,7 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
 
     setIsLoading(true);
     try {
-      const response = await fetch(`${API_BASE}/auth/signin`, {
+      const response = await apiFetch('/auth/signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(signInData)
@@ -77,13 +76,7 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
     } catch (err) {
       console.error('Sign In Error:', err);
       setIsLoading(false);
-      const demoUser = {
-        id: 'usr_demo',
-        fullName: signInData.email.split('@')[0].toUpperCase(),
-        email: signInData.email,
-        targetRole: 'Data Engineer'
-      };
-      onLoginSuccess(demoUser, 'demo_token_123');
+      setErrorMsg(err.message || 'Unable to connect to backend server. Please try again.');
     }
   };
 
@@ -105,7 +98,7 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
 
     setIsLoading(true);
     try {
-      const response = await fetch(`${API_BASE}/auth/signup`, {
+      const response = await apiFetch('/auth/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -130,7 +123,7 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
     } catch (err) {
       console.error('Sign Up Error:', err);
       setIsLoading(false);
-      setErrorMsg('Unable to connect to backend server. Please try again.');
+      setErrorMsg(err.message || 'Unable to connect to backend server. Please try again.');
     }
   };
 
@@ -554,25 +547,25 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
             <div className="flex items-center justify-between border-b pb-3 border-inherit">
               <div className="flex items-center gap-2 font-bold text-sm font-heading text-indigo-500">
                 <Database className="w-4 h-4" />
-                <span>Database Credentials & Configuration</span>
+                <span>MongoDB & Server Deployment Credentials</span>
               </div>
               <button onClick={() => setShowDbInfo(false)} className="text-xs text-slate-400 hover:text-white">✕ Close</button>
             </div>
 
             <div className="text-xs space-y-2 leading-relaxed">
-              <p>Database credentials & configuration are stored in your environment file:</p>
+              <p>MongoDB Database URI and Backend API environment settings:</p>
               <div className="p-3 rounded-xl bg-slate-950 text-indigo-300 font-mono text-[11px] space-y-1 overflow-x-auto">
                 <div># Root File: .env</div>
-                <div>DB_TYPE=sqlite (or postgres / mysql)</div>
-                <div>DB_HOST=localhost</div>
-                <div>DB_PORT=5432</div>
-                <div>DB_USER=postgres</div>
-                <div>DB_PASSWORD=your_password</div>
-                <div>DB_NAME=data_engineer_db</div>
-                <div>JWT_SECRET=super_secret_key_2026</div>
+                <div>PORT=5000</div>
+                <div>MONGODB_URI=mongodb://127.0.0.1:27017/data_engineer_prep_db</div>
+                <div># Deployed Atlas MongoDB URI:</div>
+                <div># MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/...</div>
+                <div>JWT_SECRET=de_prep_super_secret_jwt_key_2026</div>
+                <div># Frontend Environment:</div>
+                <div>VITE_API_BASE_URL=http://localhost:5000/api</div>
               </div>
               <p className="text-slate-400 text-[11px]">
-                File location: <code className="text-indigo-400">server/server.js</code> & <code className="text-indigo-400">.env</code>
+                Server files: <code className="text-indigo-400">server/server.js</code> & <code className="text-indigo-400">server/db.js</code>
               </p>
             </div>
           </div>

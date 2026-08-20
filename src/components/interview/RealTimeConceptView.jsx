@@ -61,7 +61,9 @@ export default function RealTimeConceptView({
 
           {/* Switch Concept Navigator */}
           {relevantQuestions.length > 1 && (
-            <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-950 p-1.5 rounded-2xl border border-inherit max-w-full overflow-x-auto">
+            <div className={`flex items-center gap-1.5 p-1.5 rounded-2xl border max-w-full overflow-x-auto ${
+              isDarkMode ? 'bg-slate-950 border-slate-800' : 'bg-slate-100 border-slate-200'
+            }`}>
               {relevantQuestions.slice(0, 5).map((q, idx) => (
                 <button
                   key={q.id}
@@ -69,7 +71,7 @@ export default function RealTimeConceptView({
                   className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
                     safeIdx === idx
                       ? 'bg-indigo-600 text-white shadow-xs'
-                      : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+                      : isDarkMode ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900 font-medium'
                   }`}
                 >
                   Concept {idx + 1}
@@ -136,19 +138,19 @@ export default function RealTimeConceptView({
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
           <div className={`p-4 rounded-xl border space-y-1.5 ${isDarkMode ? 'bg-slate-950 border-slate-800' : 'bg-indigo-50/50 border-indigo-100'}`}>
             <div className="text-xs font-extrabold text-indigo-600 dark:text-indigo-400 font-mono">1. Raw Data Ingestion</div>
-            <div className="text-xs text-slate-400">Fetch API / S3 CSV files</div>
+            <div className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-slate-600 font-medium'}`}>Fetch API / S3 CSV files</div>
           </div>
           <div className={`p-4 rounded-xl border space-y-1.5 ${isDarkMode ? 'bg-slate-950 border-slate-800' : 'bg-indigo-50/50 border-indigo-100'}`}>
             <div className="text-xs font-extrabold text-indigo-600 dark:text-indigo-400 font-mono">2. Spark / SQL Transform</div>
-            <div className="text-xs text-slate-400">Executes {activeSubtopic ? activeSubtopic.name : currentTopic.name} transformation</div>
+            <div className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-slate-600 font-medium'}`}>Executes {activeSubtopic ? activeSubtopic.name : currentTopic.name} transformation</div>
           </div>
           <div className={`p-4 rounded-xl border space-y-1.5 ${isDarkMode ? 'bg-slate-950 border-slate-800' : 'bg-indigo-50/50 border-indigo-100'}`}>
             <div className="text-xs font-extrabold text-indigo-600 dark:text-indigo-400 font-mono">3. Data Quality Assertions</div>
-            <div className="text-xs text-slate-400">Validates nulls, schema & primary keys</div>
+            <div className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-slate-600 font-medium'}`}>Validates nulls, schema & primary keys</div>
           </div>
           <div className={`p-4 rounded-xl border space-y-1.5 ${isDarkMode ? 'bg-slate-950 border-slate-800' : 'bg-indigo-50/50 border-indigo-100'}`}>
             <div className="text-xs font-extrabold text-indigo-600 dark:text-indigo-400 font-mono">4. Snowflake / S3 Load</div>
-            <div className="text-xs text-slate-400">Publishes clean data to reporting marts</div>
+            <div className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-slate-600 font-medium'}`}>Publishes clean data to reporting marts</div>
           </div>
         </div>
       </div>

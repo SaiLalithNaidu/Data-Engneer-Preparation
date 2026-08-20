@@ -1,56 +1,58 @@
-# 🗄️ Database Architecture & Configuration Documentation
+# 🗄️ MongoDB Database Architecture & Deployment Documentation
 
-Welcome to the **Data Engineer Preparation Suite** Database Documentation. This guide explains which database is currently used, how user authentication & individual progress tracking work, and how to connect to external databases like **PostgreSQL** or **MySQL**.
-
----
-
-## 📌 1. Which Database Do We Currently Use?
-
-By default, the application uses an **Embedded Lightweight File Database** (`server/data_store.json`) powered by **Node.js Express API** ([`server/server.js`](file:///d:/Data%20Engneer%20Preparation/server/server.js)).
-
-### Why is this used as default?
-1. **Zero Setup Required**: Works instantly out of the box without requiring you to install PostgreSQL, MySQL, or MongoDB on your machine.
-2. **Fast In-Memory Caching & Atomic Storage**: Reads data instantly into memory and writes updates atomically to disk.
-3. **Data Persistence**: All registered user accounts and question progress survive server restarts.
+Welcome to the **Data Engineer Preparation Suite** Database Documentation. This guide explains how the **MongoDB** backend database is structured, how user authentication & individual progress tracking work, and how to deploy the application with MongoDB Atlas on cloud platforms like **Vercel, Render, Railway, or Netlify**.
 
 ---
 
-## 📊 2. Database Schema Structure
+## 📌 1. Database Architecture & Setup
 
-The database maintains 3 core relational tables/collections:
+The application uses **MongoDB** connected via **Mongoose ORM** (`server/db.js`) powered by a **Node.js Express REST API** (`server/server.js`).
+
+### Core Highlights:
+1. **Cloud & Production Ready**: Uses `MONGODB_URI` environment variable for MongoDB Atlas deployment.
+2. **Atomic Fail-Safe Local Mode**: If MongoDB is starting up or offline, the server automatically degrades gracefully to an atomic local store without crashing.
+3. **Persisted Data**: User accounts, mastered question lists, mock practice test scores, bookmarks, and custom notes are stored permanently in MongoDB.
+
+---
+
+## 📊 2. MongoDB Mongoose Collections & Schema Structure
+
+The database maintains 3 core collections:
 
 ```mermaid
 erDiagram
-    USERS ||--o{ PROGRESS : "has individual progress"
-    USERS ||--o{ TOKENS : "owns active sessions"
+    User ||--o{ Progress : "has individual progress & bookmarks"
+    User ||--o{ SessionToken : "owns active login sessions"
 
-    USERS {
+    User {
         string id PK "usr_1786560001_abc"
         string fullName "Lalith Kumar"
-        string email "sai@mail.com"
+        string email UK "sai@mail.com"
         string passwordHash "sha256_hashed_password"
         string targetRole "Data Engineer"
-        string createdAt "2026-08-15T18:00:00Z"
+        date createdAt "2026-08-20T04:00:00Z"
     }
 
-    PROGRESS {
+    Progress {
         string userId FK "usr_1786560001_abc"
         array masteredQIds "['python-1', 'sql-5', 'aws-12']"
+        array bookmarks "['pyspark-3', 'snowflake-1']"
+        array mockResults "[{ topicId: 'sql', score: 10, totalQuestions: 10 }]"
+        object notes "{ 'python-1': 'Use generators for big files' }"
     }
 
-    TOKENS {
+    SessionToken {
         string token PK "token_1786560001_xyz"
         string userId FK "usr_1786560001_abc"
+        date createdAt "TTL 30 Days"
     }
 ```
 
 ---
 
-## ⚙️ 3. How to Configure & Connect External Databases (PostgreSQL / MySQL)
+## ⚙️ 3. Environment Variables Configuration (`.env`)
 
-All database settings are managed centrally through the root **[`.env`](file:///d:/Data%20Engneer%20Preparation/.env)** file:
-
-### `.env` File Credentials:
+All database credentials and backend API URLs are managed centrally in the root **[`.env`](file:///d:/Data%20Engneer%20Preparation/.env)** file:
 
 ```env
 # ----------------------------------------------------
@@ -60,17 +62,18 @@ PORT=5000
 NODE_ENV=development
 
 # ----------------------------------------------------
-# DATABASE SELECTION & CREDENTIALS
+# MONGODB DATABASE CONFIGURATION
+# Local MongoDB: mongodb://127.0.0.1:27017/data_engineer_prep_db
+# Cloud MongoDB Atlas (for Vercel / Render / Railway):
+# MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/data_engineer_prep?retryWrites=true&w=majority
 # ----------------------------------------------------
-# Supported DB_TYPE values: 'sqlite' | 'postgres' | 'mysql'
-DB_TYPE=sqlite
+MONGODB_URI=mongodb://127.0.0.1:27017/data_engineer_prep_db
 
-# Enterprise DB Host & Port (When DB_TYPE=postgres or mysql)
-DB_HOST=localhost
-DB_PORT=5432
-DB_USER=postgres
-DB_PASSWORD=your_actual_password
-DB_NAME=data_engineer_prep_db
+# ----------------------------------------------------
+# FRONTEND API BASE URL (FOR DEPLOYMENT)
+# Set VITE_API_BASE_URL to your deployed backend API endpoint
+# ----------------------------------------------------
+VITE_API_BASE_URL=http://localhost:5000/api
 
 # ----------------------------------------------------
 # AUTHENTICATION SECRET
@@ -80,30 +83,46 @@ JWT_SECRET=de_prep_super_secret_jwt_key_2026
 
 ---
 
-## 🔌 4. API Endpoints Summary
+## 🌐 4. Why Sign-In Failed After Deployment & How It Is Fixed
 
-The backend Express server (`server/server.js`) exposes the following REST APIs:
+### Cause of Post-Deployment Sign-In Failure:
+1. **Hardcoded Local API Base**: Frontends deployed to Vercel/Netlify tried to call `http://localhost:5000/api`, which fails on external user devices.
+2. **Serverless Ephemeral File Systems**: Hosting providers wipe or restrict local file writes (`data_store.json`), causing auth operations to fail.
 
-| HTTP Method | Endpoint | Description | Auth Required |
-|---|---|---|---|
-| **`POST`** | `/api/auth/signup` | Registers a new user account & hashes password | ❌ No |
-| **`POST`** | `/api/auth/signin` | Validates credentials & returns authorization token | ❌ No |
-| **`GET`** | `/api/auth/me` | Fetches current user profile | ✅ Yes (`Bearer token`) |
-| **`GET`** | `/api/user/progress` | Fetches individual user's mastered question list | ✅ Yes (`Bearer token`) |
-| **`POST`** | `/api/user/progress` | Saves individual user's mastered question list | ✅ Yes (`Bearer token`) |
+### The Solution Applied:
+- **`VITE_API_BASE_URL` Support**: Updated `src/App.jsx` and `src/components/auth/AuthPage.jsx` to dynamically read `import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api'`.
+- **MongoDB Atlas Integration**: Converted `server/server.js` to persist users, tokens, and progress into **MongoDB**, which works seamlessly on serverless platforms.
 
 ---
 
-## 🚀 5. How to Run the Database Backend
+## 🔌 5. REST API Endpoints Summary
 
-1. **Start the Express Auth API Server**:
-   ```bash
-   node server/server.js
-   ```
-   *Output*: `🚀 Authentication & Database Backend API running on http://localhost:5000`
+| HTTP Method | Endpoint | Description | Auth Required |
+|---|---|---|---|
+| **`GET`** | `/api/health` | Checks backend API and MongoDB connection state | ❌ No |
+| **`POST`** | `/api/auth/signup` | Registers new user in MongoDB and creates session | ❌ No |
+| **`POST`** | `/api/auth/signin` | Validates password hash against MongoDB & returns token | ❌ No |
+| **`GET`** | `/api/auth/me` | Fetches current user profile from MongoDB | ✅ Yes (`Bearer token`) |
+| **`GET`** | `/api/user/progress` | Fetches individual user's mastered question list | ✅ Yes (`Bearer token`) |
+| **`POST`** | `/api/user/progress` | Saves individual user's mastered question list | ✅ Yes (`Bearer token`) |
+| **`GET`** | `/api/user/bookmarks` | Fetches user's bookmarked questions (Future Feature) | ✅ Yes (`Bearer token`) |
+| **`POST`** | `/api/user/bookmarks` | Saves user's bookmarked questions | ✅ Yes (`Bearer token`) |
 
-2. **Start the Frontend Web App**:
-   ```bash
-   npm run dev
-   ```
-   *Output*: `Vite dev server running on http://localhost:3000`
+---
+
+## 🚀 6. Step-by-Step Production Deployment Guide
+
+### A. Deploy Backend API to Render / Railway:
+1. Push repository to GitHub.
+2. Create a new Web Service on **Render** (or **Railway**).
+3. Set **Build Command**: `npm install`
+4. Set **Start Command**: `npm run server`
+5. Add Environment Variables:
+   - `MONGODB_URI`: `mongodb+srv://<username>:<password>@cluster.mongodb.net/data_engineer_prep?retryWrites=true&w=majority`
+   - `JWT_SECRET`: your secret key
+
+### B. Deploy Frontend to Vercel / Netlify:
+1. Create a new project on **Vercel**.
+2. Set Environment Variable:
+   - `VITE_API_BASE_URL`: `https://your-backend-api.onrender.com/api`
+3. Click **Deploy**.

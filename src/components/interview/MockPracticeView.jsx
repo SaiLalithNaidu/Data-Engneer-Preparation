@@ -80,9 +80,9 @@ export default function MockPracticeView({ topics = [], isDarkMode }) {
           isDarkMode ? 'bg-[#0f172a] border-slate-800 text-white' : 'bg-white border-slate-200 shadow-sm text-slate-900'
         }`}>
           
-          <div className="flex items-center justify-between text-xs font-bold text-slate-400">
+          <div className={`flex items-center justify-between text-xs font-bold ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
             <span>Question {currentQIndex + 1} of {questions.length}</span>
-            <span className="text-indigo-500 font-mono">Topic: {activeTopic.name}</span>
+            <span className="text-indigo-600 dark:text-indigo-400 font-mono">Topic: {activeTopic.name}</span>
           </div>
 
           <div className="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
@@ -117,7 +117,7 @@ export default function MockPracticeView({ topics = [], isDarkMode }) {
 
           {/* Self Assessment Buttons */}
           <div className="pt-2 flex items-center justify-between gap-4">
-            <div className="text-xs text-slate-400">Review the technical solution above.</div>
+            <div className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>Review the technical solution above.</div>
             
             <button
               onClick={handleNext}

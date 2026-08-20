@@ -44,7 +44,9 @@ export default function Navbar({
           </button>
 
           {/* Section Mode Switcher Pills */}
-          <div className="flex items-center gap-1.5 p-1 rounded-xl border bg-slate-100 dark:bg-slate-950 border-inherit text-xs font-bold overflow-x-auto whitespace-nowrap">
+          <div className={`flex items-center gap-1.5 p-1 rounded-xl border text-xs font-bold overflow-x-auto whitespace-nowrap ${
+            isDarkMode ? 'bg-slate-950 border-slate-800' : 'bg-slate-100 border-slate-200'
+          }`}>
             <button
               onClick={() => setActiveTab('topic')}
               className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg transition-all ${

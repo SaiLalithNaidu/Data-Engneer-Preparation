@@ -131,10 +131,14 @@ export default function Sidebar({
           }`}
         >
           <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-indigo-400" />
+            <Sparkles className={`w-4 h-4 ${activeTab === 'infographic' ? 'text-white' : isDarkMode ? 'text-indigo-400' : 'text-indigo-600'}`} />
             <span>Infographic Cheat Sheet</span>
           </div>
-          <span className="text-[9px] font-mono uppercase bg-indigo-500/20 text-indigo-300 px-1.5 py-0.5 rounded font-extrabold">
+          <span className={`text-[9px] font-mono uppercase px-1.5 py-0.5 rounded font-extrabold ${
+            activeTab === 'infographic'
+              ? 'bg-white/20 text-white'
+              : isDarkMode ? 'bg-indigo-500/20 text-indigo-300' : 'bg-indigo-100 text-indigo-700'
+          }`}>
             Poster
           </span>
         </button>
@@ -152,10 +156,14 @@ export default function Sidebar({
           }`}
         >
           <div className="flex items-center gap-2">
-            <FileCode2 className="w-4 h-4 text-indigo-400" />
+            <FileCode2 className={`w-4 h-4 ${activeTab === 'concepts' ? 'text-white' : isDarkMode ? 'text-indigo-400' : 'text-indigo-600'}`} />
             <span>Real-Time Concept Guide</span>
           </div>
-          <span className="text-[9px] font-mono uppercase bg-indigo-500/20 text-indigo-300 px-1.5 py-0.5 rounded font-extrabold">
+          <span className={`text-[9px] font-mono uppercase px-1.5 py-0.5 rounded font-extrabold ${
+            activeTab === 'concepts'
+              ? 'bg-white/20 text-white'
+              : isDarkMode ? 'bg-indigo-500/20 text-indigo-300' : 'bg-indigo-100 text-indigo-700'
+          }`}>
             What/Why/How
           </span>
         </button>
@@ -214,8 +222,8 @@ export default function Sidebar({
                     {/* Progress Badge */}
                     <span className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded flex-shrink-0 ${
                       topicMastered === t.questions.length && t.questions.length > 0
-                        ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                        : 'bg-slate-100 dark:bg-slate-800 text-slate-400'
+                        ? isDarkMode ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-emerald-100 text-emerald-700 border border-emerald-200'
+                        : isDarkMode ? 'bg-slate-800 text-slate-400' : 'bg-slate-100 text-slate-600'
                     }`}>
                       {topicMastered}/{t.questions.length}
                     </span>
@@ -244,14 +252,14 @@ export default function Sidebar({
                             }`}
                           >
                             <div className="flex items-start gap-1.5 flex-1 min-w-0 pr-1">
-                              <FileCode2 className={`w-3.5 h-3.5 flex-shrink-0 mt-0.5 ${isSubActive ? 'text-white' : 'text-indigo-400'}`} />
+                              <FileCode2 className={`w-3.5 h-3.5 flex-shrink-0 mt-0.5 ${isSubActive ? 'text-white' : isDarkMode ? 'text-indigo-400' : 'text-indigo-600'}`} />
                               <span className="leading-snug break-words font-medium">
                                 {sub.name}
                               </span>
                             </div>
 
                             <span className={`text-[9px] font-mono font-bold px-1 py-0.2 rounded flex-shrink-0 mt-0.5 ${
-                              isSubActive ? 'bg-white/20 text-white' : 'text-slate-400 bg-slate-100 dark:bg-slate-800'
+                              isSubActive ? 'bg-white/20 text-white' : isDarkMode ? 'text-slate-400 bg-slate-800' : 'text-slate-600 bg-slate-100'
                             }`}>
                               {subMasteredCount}/{sub.qCount}
                             </span>
@@ -282,7 +290,9 @@ export default function Sidebar({
               <FileText className="w-4 h-4 text-cyan-500" />
               <span>Original Study PDFs</span>
             </div>
-            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-400">
+            <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+              isDarkMode ? 'bg-cyan-500/20 text-cyan-400' : 'bg-cyan-100 text-cyan-700'
+            }`}>
               18 PDFs
             </span>
           </button>
@@ -298,7 +308,7 @@ export default function Sidebar({
           isDarkMode ? 'bg-slate-900/80 border-slate-800' : 'bg-slate-50 border-slate-200'
         }`}>
           <div className="flex items-center justify-between font-bold">
-            <span className="text-slate-400 text-[11px] uppercase font-mono">Mastered Progress</span>
+            <span className={`text-[11px] uppercase font-mono ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>Mastered Progress</span>
             <span className="text-emerald-600 dark:text-emerald-400 font-mono font-bold">
               {masteredCount}/{totalQuestions} Qs
             </span>
@@ -325,7 +335,9 @@ export default function Sidebar({
             {isDarkMode ? <Moon className="w-4 h-4 text-indigo-400" /> : <Sun className="w-4 h-4 text-amber-500" />}
             <span>{isDarkMode ? 'Night Mode' : 'Day Mode'}</span>
           </div>
-          <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-400">
+          <span className={`text-[10px] uppercase font-mono px-2 py-0.5 rounded ${
+            isDarkMode ? 'bg-indigo-500/20 text-indigo-400' : 'bg-indigo-100 text-indigo-700 font-bold'
+          }`}>
             Switch
           </span>
         </button>

@@ -91,7 +91,7 @@ export default function TopicInterviewView({
 
           <div className="flex items-center gap-3 w-full sm:w-auto">
             <div className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl border text-center w-full sm:w-auto ${isDarkMode ? 'bg-slate-950 border-slate-800' : 'bg-slate-50 border-slate-200 shadow-xs'}`}>
-              <div className="text-[10px] font-bold uppercase text-slate-400">Total Questions</div>
+              <div className={`text-[10px] font-bold uppercase ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>Total Questions</div>
               <div className="text-xl sm:text-2xl font-extrabold text-indigo-600 dark:text-indigo-400 font-mono">{topic.questions.length} Qs</div>
               <div className="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono font-bold">{topicMasteredCount} Mastered ({topicPct}%)</div>
             </div>
@@ -121,7 +121,9 @@ export default function TopicInterviewView({
         </div>
 
         {/* Difficulty Filter */}
-        <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-950 p-1 rounded-xl border border-inherit text-xs font-semibold overflow-x-auto whitespace-nowrap">
+        <div className={`flex items-center gap-1 p-1 rounded-xl border text-xs font-semibold overflow-x-auto whitespace-nowrap ${
+          isDarkMode ? 'bg-slate-950 border-slate-800' : 'bg-slate-100 border-slate-200'
+        }`}>
           <SlidersHorizontal className="w-3.5 h-3.5 text-slate-400 ml-2 mr-1 flex-shrink-0" />
           {['All', 'Easy', 'Medium', 'Hard'].map((diff) => (
             <button
@@ -133,7 +135,7 @@ export default function TopicInterviewView({
               className={`px-2.5 py-1 rounded-lg transition-all text-xs ${
                 selectedDifficulty === diff 
                   ? 'bg-indigo-600 text-white font-bold shadow-xs' 
-                  : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-200'
+                  : isDarkMode ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900 font-medium'
               }`}
             >
               {diff}
@@ -146,17 +148,21 @@ export default function TopicInterviewView({
           <button
             onClick={() => setCurrentPage(p => Math.max(p - 1, 1))}
             disabled={currentPage === 1}
-            className="p-1.5 rounded-lg border border-inherit disabled:opacity-30 hover:bg-indigo-50 dark:hover:bg-slate-800"
+            className={`p-1.5 rounded-lg border disabled:opacity-30 transition-all ${
+              isDarkMode ? 'border-slate-800 hover:bg-slate-800 text-slate-300' : 'border-slate-200 hover:bg-slate-100 text-slate-700'
+            }`}
           >
             <ChevronLeft className="w-4 h-4 text-indigo-500" />
           </button>
-          <span className="font-mono text-slate-500 text-[11px] sm:text-xs">
+          <span className={`font-mono text-[11px] sm:text-xs ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
             Page {currentPage} of {totalPages}
           </span>
           <button
             onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))}
             disabled={currentPage === totalPages}
-            className="p-1.5 rounded-lg border border-inherit disabled:opacity-30 hover:bg-indigo-50 dark:hover:bg-slate-800"
+            className={`p-1.5 rounded-lg border disabled:opacity-30 transition-all ${
+              isDarkMode ? 'border-slate-800 hover:bg-slate-800 text-slate-300' : 'border-slate-200 hover:bg-slate-100 text-slate-700'
+            }`}
           >
             <ChevronRight className="w-4 h-4 text-indigo-500" />
           </button>

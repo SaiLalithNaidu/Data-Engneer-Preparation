@@ -9,8 +9,7 @@ import PdfViewerModal from './components/modules/PdfViewerModal';
 import AuthPage from './components/auth/AuthPage';
 
 import interviewDB from './data/interview_questions_db.json';
-
-const API_BASE = 'http://localhost:5000/api';
+import { apiFetch } from './api/client';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('topic'); // 'topic', 'practice'
@@ -38,7 +37,7 @@ export default function App() {
   // Fetch individual user progress from backend API when logged in
   useEffect(() => {
     if (authToken && currentUser) {
-      fetch(`${API_BASE}/user/progress`, {
+      apiFetch('/user/progress', {
         headers: {
           'Authorization': `Bearer ${authToken}`
         }
@@ -99,7 +98,7 @@ export default function App() {
 
     // Save to backend database for logged in user
     if (authToken) {
-      fetch(`${API_BASE}/user/progress`, {
+      apiFetch('/user/progress', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
