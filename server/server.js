@@ -26,6 +26,12 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
+// Auto-reconnect DB middleware
+app.use(async (req, res, next) => {
+  await connectDB();
+  next();
+});
+
 // API Routes Mounting
 app.use('/api', healthRoutes);
 app.use('/api/auth', authRoutes);

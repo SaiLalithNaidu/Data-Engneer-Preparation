@@ -10,24 +10,14 @@ const __dirname = path.dirname(__filename);
 // Ensure .env is loaded
 dotenv.config({ path: path.join(__dirname, '../../.env') });
 
-// Configure DNS fallback for MongoDB Atlas SRV record resolution on local ISP networks
-try {
-  dns.setServers(['8.8.8.8', '1.1.1.1', '8.8.4.4']);
-} catch (dnsErr) {
-  console.warn('[DNS CONFIG WARNING]', dnsErr.message);
-}
+const DEFAULT_ATLAS_URI = 'mongodb+srv://konasailalith20_db_user:BNl64Xy5tDhw7vmc@dataengneerdb.ioqulmj.mongodb.net/data_engineer_prep?retryWrites=true&w=majority';
 
 let isConnected = false;
 
 export async function connectDB() {
-  if (isConnected) return true;
+  if (isConnected && mongoose.connection.readyState === 1) return true;
 
-  const MONGODB_URI = process.env.MONGODB_URI;
-
-  if (!MONGODB_URI) {
-    console.error('[MONGODB ERROR] MONGODB_URI is not defined in environment variables.');
-    return false;
-  }
+  const MONGODB_URI = process.env.MONGODB_URI || DEFAULT_ATLAS_URI;
 
   try {
     mongoose.set('strictQuery', false);
