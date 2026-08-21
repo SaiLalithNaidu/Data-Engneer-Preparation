@@ -38,7 +38,7 @@ app.use(errorHandler);
 // Start Express API Server
 app.listen(PORT, () => {
   console.log(`🚀 Data Engineer Prep Backend Server running on Port ${PORT}`);
-  console.log(`📡 AWS Base API Endpoint: http://52.228.19.191:${PORT}/api`);
+  console.log(`📡 AWS Base API Endpoint: http://16.170.217.208:${PORT}/api`);
 });
 
 export default app;

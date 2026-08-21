@@ -18,8 +18,8 @@ export const getApiBaseUrl = () => {
     }
   }
 
-  // Deployed Production Direct Server (e.g. AWS EC2 IP 52.228.19.191)
-  return (envUrl || 'http://52.228.19.191:5100/api').replace(/\/$/, '');
+  // Deployed Production Direct Server (e.g. AWS EC2 IP 16.170.217.208)
+  return (envUrl || 'http://16.170.217.208:5100/api').replace(/\/$/, '');
 };
 
 // Resilient API fetch wrapper with automatic failover and safe JSON response handling
@@ -36,8 +36,8 @@ export async function apiFetch(endpoint, options = {}) {
     console.warn(`[API CLIENT WARNING] Connection to ${primaryUrl} failed:`, primaryErr.message);
 
     // Fallback attempt to direct AWS EC2 URL if proxy or custom endpoint failed
-    if (primaryBase !== 'http://52.228.19.191:5100/api') {
-      const fallbackUrl = `http://52.228.19.191:5100/api${cleanEndpoint}`;
+    if (primaryBase !== 'http://16.170.217.208:5100/api') {
+      const fallbackUrl = `http://16.170.217.208:5100/api${cleanEndpoint}`;
       console.log(`[API CLIENT FAILOVER] Retrying direct AWS EC2 API endpoint: ${fallbackUrl}`);
       try {
         response = await fetch(fallbackUrl, options);
@@ -46,7 +46,7 @@ export async function apiFetch(endpoint, options = {}) {
         return new Response(
           JSON.stringify({
             success: false,
-            message: 'Unable to connect to backend server. AWS EC2 instance (52.228.19.191:5100) is offline or port 5100 is blocked.'
+            message: 'Unable to connect to backend server. AWS EC2 instance (16.170.217.208:5100) is offline or port 5100 is blocked.'
           }),
           { status: 503, headers: { 'Content-Type': 'application/json' } }
         );
@@ -72,7 +72,7 @@ export async function apiFetch(endpoint, options = {}) {
     // Response body is HTML or text (e.g. Netlify 504 Gateway Timeout or 500 HTML page)
     let customMsg = `Server returned status ${response.status} (${response.statusText || 'Error'})`;
     if (response.status === 504) {
-      customMsg = 'Backend connection timeout (504 Gateway Timeout). The AWS EC2 server (52.228.19.191:5100) is offline or port 5100 inbound rule is blocked in AWS Security Group.';
+      customMsg = 'Backend connection timeout (504 Gateway Timeout). The AWS EC2 server (16.170.217.208:5100) is offline or port 5100 inbound rule is blocked in AWS Security Group.';
     } else if (response.status === 500) {
       customMsg = 'Backend server error (500 Internal Server Error). Please check backend server logs.';
     } else if (response.status === 404) {

@@ -132,11 +132,16 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
+      const nameFromForm = (authMode === 'signup' ? signUpData.fullName : signInData.email.split('@')[0]) || '';
+      const emailFromForm = (authMode === 'signup' ? signUpData.email : signInData.email) || '';
+      const roleFromForm = (authMode === 'signup' ? signUpData.targetRole : role) || role;
+
       const user = {
-        id: 'guest_user_101',
-        fullName: 'Guest Engineer',
-        email: 'guest@nxtwave.prep',
-        targetRole: role
+        id: `guest_user_${Date.now()}`,
+        fullName: nameFromForm.trim() || 'Guest Engineer',
+        email: emailFromForm.trim() || 'guest@nxtwave.prep',
+        targetRole: roleFromForm,
+        isGuestMode: true
       };
       confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
       onLoginSuccess(user, 'guest_demo_token');
@@ -343,16 +348,19 @@ export default function AuthPage({ onLoginSuccess, isDarkMode, setIsDarkMode }) 
                     <ShieldCheck className="w-4 h-4 flex-shrink-0 mt-0.5" />
                     <span className="leading-snug">{errorMsg}</span>
                   </div>
-                  {(errorMsg.includes('504') || errorMsg.includes('offline') || errorMsg.includes('unreachable') || errorMsg.includes('timeout')) && (
+                  <div className="pt-2 border-t border-rose-500/20">
+                    <p className="text-[11px] text-slate-300 font-medium mb-1.5">
+                      AWS Server offline or unreachable? Start studying immediately in local offline mode:
+                    </p>
                     <button
                       type="button"
                       onClick={() => handleDemoLogin('Data Engineer')}
-                      className="w-full mt-1.5 py-1.5 px-3 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 font-bold text-[11px] flex items-center justify-center gap-1.5 transition-all border border-rose-500/40"
+                      className="w-full py-2 px-3 rounded-lg bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs flex items-center justify-center gap-2 transition-all shadow-md active:scale-98"
                     >
-                      <Sparkles className="w-3.5 h-3.5" />
-                      <span>Continue in Guest / Offline Mode</span>
+                      <Sparkles className="w-4 h-4 text-amber-300" />
+                      <span>Continue in Guest / Offline Mode →</span>
                     </button>
-                  )}
+                  </div>
                 </div>
               )}
 

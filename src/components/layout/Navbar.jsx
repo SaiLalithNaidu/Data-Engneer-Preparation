@@ -136,7 +136,14 @@ export default function Navbar({
               }`}>
                 <UserCheck className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
                 <div className="text-left leading-tight hidden xs:block">
-                  <div className="truncate max-w-[90px] sm:max-w-[120px] font-extrabold text-[11px] sm:text-xs">{currentUser.fullName}</div>
+                  <div className="flex items-center gap-1">
+                    <span className="truncate max-w-[90px] sm:max-w-[120px] font-extrabold text-[11px] sm:text-xs">{currentUser.fullName}</span>
+                    {currentUser.isGuestMode && (
+                      <span className="text-[9px] px-1 py-0.2 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 font-semibold">
+                        Offline
+                      </span>
+                    )}
+                  </div>
                   <div className="text-[8px] sm:text-[9px] text-slate-400 font-mono font-medium hidden sm:block">{currentUser.targetRole}</div>
                 </div>
               </div>

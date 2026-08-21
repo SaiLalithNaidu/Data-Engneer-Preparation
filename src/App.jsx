@@ -46,24 +46,26 @@ export default function App() {
         } catch (e) {}
       }
 
-      // Sync with backend API
-      apiFetch('/user/progress', {
-        headers: {
-          'Authorization': `Bearer ${authToken}`
-        }
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.success && Array.isArray(data.masteredQIds)) {
-          setMasteredQIds(data.masteredQIds);
-          localStorage.setItem(`de_mastered_${userKey}`, JSON.stringify(data.masteredQIds));
-        } else if (data && !data.success) {
-          console.info('[PROGRESS SYNC NOTICE]', data.message);
-        }
-      })
-      .catch(err => {
-        console.warn('Backend progress fetch notice (using local cache):', err.message);
-      });
+      // Sync with backend API if logged into remote backend account
+      if (!authToken.startsWith('guest_')) {
+        apiFetch('/user/progress', {
+          headers: {
+            'Authorization': `Bearer ${authToken}`
+          }
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.success && Array.isArray(data.masteredQIds)) {
+            setMasteredQIds(data.masteredQIds);
+            localStorage.setItem(`de_mastered_${userKey}`, JSON.stringify(data.masteredQIds));
+          } else if (data && !data.success) {
+            console.info('[PROGRESS SYNC NOTICE]', data.message);
+          }
+        })
+        .catch(err => {
+          console.warn('Backend progress fetch notice (using local cache):', err.message);
+        });
+      }
     } else {
       setMasteredQIds([]);
     }

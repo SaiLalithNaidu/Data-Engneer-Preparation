@@ -10,7 +10,7 @@
 # 1. Reverse proxy /api/* requests to AWS EC2 backend (Fixes HTTPS mixed content)
 [[redirects]]
   from = "/api/*"
-  to = "http://52.228.19.191:5100/api/:splat"
+  to = "http://16.170.217.208:5100/api/:splat"
   status = 200
   force = true
 
